@@ -20,7 +20,8 @@ namespace WebApi.Core
             services.AddTransient<IFacturacionRepository, FacturacionRepository>();
             services.AddTransient<IItemRepository, ItemRepository>();
             services.AddTransient<IMateriaPrimaRepository, MateriaPrimaRepository>();
-            services.AddTransient<IOrdenService, OrdenService>();
+            services.AddTransient<IRolRepository, RolRepository>();
+            services.AddTransient<IOrdenRepository, OrdenRepository>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
             #endregion Repositories
@@ -33,6 +34,7 @@ namespace WebApi.Core
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IMateriaPrimaService, MateriaPrimaService>();
             services.AddTransient<IRolService, RolService>();
+            services.AddTransient<IOrdenService, OrdenService>();
             services.AddTransient<IUsuarioService, UsuarioService>();
 
             #endregion Services

@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="DTO\Request\" />
     <Folder Include="Enums\" />
     <Folder Include="Constants\" />
     <Folder Include="Events\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="DTO\" />
   </ItemGroup>
 
 </Project>

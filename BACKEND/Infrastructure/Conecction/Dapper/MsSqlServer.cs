@@ -15,7 +15,7 @@ namespace Infrastructure.Conecction.Dapper
         {
             var connectionStringName = string.Empty;
 
-            connectionStringName = string.Format("ConnectionStrings:{0}", "");
+            connectionStringName = string.Format("ConnectionStrings:{0}", "ConexionSvr_Default");
 
             var connectionString = DapperConfiguration[connectionStringName];
 

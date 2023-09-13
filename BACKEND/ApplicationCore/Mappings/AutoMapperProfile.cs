@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Domain.DTO.Response.Rol;
+using Domain.Entities;
 
 namespace ApplicationCore.Mappings
 {
@@ -7,6 +9,13 @@ namespace ApplicationCore.Mappings
         public AutoMapperProfile()
         {
             //source mapping to destination
+            CreateMap<RolEntity, RolListarDto>();
+            CreateMap<RolEntity, RolListarByIdDto>(); 
+            
+            CreateMap<RolRegistrar , RolEntity>();
+            CreateMap<RolActualizar, RolEntity>();
+            CreateMap<RolEliminar, RolEntity>();
+
         }
     }
 }

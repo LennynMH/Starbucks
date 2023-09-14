@@ -6,7 +6,6 @@ GO
 
 DROP PROCEDURE IF EXISTS USP_CREATE_ROL;
 GO
-
 CREATE PROCEDURE USP_CREATE_ROL
 	@Descripcion VARCHAR(100)
 AS
@@ -68,14 +67,70 @@ BEGIN
 END
 GO
 
+/***************************************************************************/
+DROP PROCEDURE IF EXISTS USP_CREATE_ESTADO;
+GO
+CREATE PROCEDURE USP_CREATE_ESTADO
+	@Descripcion VARCHAR(100)
+AS
+BEGIN
+	INSERT INTO Estado(Descripcion)  VALUES (@Descripcion);
+	SELECT CAST(SCOPE_IDENTITY() AS INT)
+END
+GO
 
 
+DROP PROCEDURE IF EXISTS USP_UPDATE_ESTADO;
+GO
+CREATE PROCEDURE USP_UPDATE_ESTADO
+	@IdEstado			INT,
+	@Descripcion	VARCHAR(100)
+AS
+BEGIN
+	UPDATE Estado SET Descripcion =@Descripcion WHERE IdEstado =@IdEstado ;
+	SELECT @IdEstado;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_DELETE_ESTADO;
+GO
+CREATE PROCEDURE USP_DELETE_ESTADO
+	@IdEstado			INT
+AS
+BEGIN
+	UPDATE Estado SET Activo =0 WHERE IdEstado =@IdEstado ;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_SELECT_ESTADO_BY_ID;
+GO
+CREATE PROCEDURE USP_SELECT_ESTADO_BY_ID
+	@IdEstado			INT
+AS
+BEGIN
+	SELECT 
+		IdEstado	,	
+		Descripcion	,
+		Activo		
+	FROM Estado
+	WHERE IdEstado =@IdEstado 
+	AND Activo =1;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_SELECT_ESTADO;
+GO
+CREATE PROCEDURE USP_SELECT_ESTADO
+AS
+BEGIN
+	SELECT 
+		IdEstado	,	
+		Descripcion	,
+		Activo		
+	FROM Estado
+	WHERE Activo =1;
+END
+GO
+/***************************************************************************/
 
 
-
-/*
-CREATE TABLE Rol(
-	IdRol				INT IDENTITY (1,1) PRIMARY KEY,
-	Descripcion			VARCHAR(100) NOT NULL,
-	Activo				BIT DEFAULT 1 NOT NULL
-*/

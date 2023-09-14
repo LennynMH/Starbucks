@@ -1,14 +1,13 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApplicationCore.Interface.IRepositories
 {
     public interface IEstadoRepository
     {
-        //Task<int> Registrar(RolEntity param);
+        Task<int> Registrar(EstadoEntity param);
+        Task<int> Actualizar(EstadoEntity param);
+        Task<int> Eliminar(EstadoEntity param);
+        Task<IEnumerable<EstadoEntity>?> Listar();
+        Task<EstadoEntity?> ListarById(int IdEstado);
     }
 }

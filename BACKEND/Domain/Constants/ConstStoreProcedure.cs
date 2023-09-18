@@ -6,9 +6,14 @@
         public static class Usuario
         {
             public const string USP_SELECT_USUARIO_BY_CODIGO = "USP_SELECT_USUARIO_BY_CODIGO";
+            public const string USP_CREATE_USUARIO = "USP_CREATE_USUARIO";
+            public const string USP_UPDATE_USUARIO = "USP_UPDATE_USUARIO";
+            public const string USP_DELETE_USUARIO = "USP_DELETE_USUARIO";
+            public const string USP_SELECT_USUARIO = "USP_SELECT_USUARIO";
+            public const string USP_SELECT_USUARIO_BY_ID = "USP_SELECT_USUARIO_BY_ID";
         }
         public static class Rol
-        { 
+        {
             public const string USP_CREATE_ROL = "USP_CREATE_ROL";
             public const string USP_UPDATE_ROL = "USP_UPDATE_ROL";
             public const string USP_DELETE_ROL = "USP_DELETE_ROL";

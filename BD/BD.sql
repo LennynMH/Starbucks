@@ -39,9 +39,9 @@ CREATE TABLE Usuario(
 )
 
 INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (1,'46827809','administrador','gonzales',30,'M','administrador@hotmail.com','46827809','10000.o2fH5sr9zLLNHtsK2teQ5A==.4xB18YGuyXP5GEzPh8jSgeyAB3lKH0cUSy3jD7yRjCA=');
-INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (2,'45685785','usuario','rios',30,'M','usuario@hotmail.com','45685785','');
-INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (3,'47852632','empleado','perez',30,'M','empleado@hotmail.com','47852632','');
-INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (4,'49987526','Supervisor','ramirez',30,'M','Supervisor@hotmail.com','49987526','');
+INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (2,'45685785','usuario','rios',30,'M','usuario@hotmail.com','45685785','10000.kHPXfRop2dBGLRAdU70pTA==.gvL7dRRpOLAgq0B08p631QhLyfl/Qo74jDQZAX5rBgI=');
+INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (3,'47852632','empleado','perez',30,'M','empleado@hotmail.com','47852632','10000.LcTHGP5wPmQUy1IdF9VBzw==.FeBoXfEtAmtS3M7r6K0cu/g4U2rKa+tJpO9HdfRedoU=');
+INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (4,'49987526','Supervisor','ramirez',30,'M','Supervisor@hotmail.com','49987526','10000.Ue+9ZfqQEwiFLUZoEdWIxA==.b1qUhFbaJRDWRZJLAGaEgQb5orO+2r8hEt30s4OoE+U=');
 -- SELECT * FROM Usuario
 
 CREATE TABLE MateriaPrima(

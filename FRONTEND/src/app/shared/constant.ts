@@ -5,4 +5,10 @@ export const IncomeWebApi = {
     RolListar: "/api/Rol/Listar",
     RolListarById: "/api/Rol/ListarById",  
     RolEliminar: "/api/Rol/Eliminar",
+
+    UsuarioRegistrar: "/api/Usuario/Registrar",
+    UsuarioActualizar: "/api/Usuario/Actualizar",
+    UsuarioListar: "/api/Usuario/Listar",
+    UsuarioListarById: "/api/Usuario/ListarById",  
+    UsuarioEliminar: "/api/Usuario/Eliminar",
 }

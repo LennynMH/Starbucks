@@ -35,7 +35,7 @@ namespace ApplicationCore.Services
             var response = new HttpResponseResult<int>() { Data = responsemapper };
             return response;
         }
-        //public async Task<HttpResponseResult<int>> Eliminar(RolEliminarRequest param)
+
         public async Task<HttpResponseResult<int>> Eliminar(int IdRol)
         {
             var param = new RolEliminarRequest { IdRol = IdRol };

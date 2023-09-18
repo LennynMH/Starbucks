@@ -18,6 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { UsuarioComponent } from 'src/app/components/usuario/usuario.component';
+import { UsuarioPopupComponent } from 'src/app/components/usuario/usuario-popup/usuario-popup.component';
 import { RolesComponent } from 'src/app/components/roles/roles.component';
 import { RolesPopupComponent } from 'src/app/components/roles/roles-popup/roles-popup.component';
 import { AuthInterceptor } from 'src/app/features/authentication/guards/auth.intercetor';
@@ -26,6 +27,7 @@ import { AuthInterceptor } from 'src/app/features/authentication/guards/auth.int
   declarations: [
     DashboardComponent,
     UsuarioComponent,
+    UsuarioPopupComponent,
     RolesComponent,
     RolesPopupComponent,
     ModalComponent,

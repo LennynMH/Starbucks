@@ -189,16 +189,6 @@ CREATE PROCEDURE USP_SELECT_USUARIO_BY_CODIGO
 	@Codigo				VARCHAR(100)
 AS
 BEGIN
-	/*
-	SELECT 
-		 u.IdUsuario			
-		,u.DocumentoIdentidad	
-		,u.Codigo				
-		,u.Contrasena			
-	FROM Usuario u
-	WHERE Codigo =@Codigo
-	AND u.Activo =1;
-	*/
 	SELECT 
 		 u.IdUsuario			
 		,u.IdRol				
@@ -222,3 +212,141 @@ BEGIN
 END
 GO
 /***************************************************************************/
+
+DROP PROCEDURE IF EXISTS USP_CREATE_USUARIO;
+GO
+CREATE PROCEDURE USP_CREATE_USUARIO
+	@IdRol					INT				,
+	@DocumentoIdentidad		VARCHAR(10)		,
+	@Nombre					VARCHAR(50)		,
+	@Apellido				VARCHAR(50)		,
+	@Edad					INT				,
+	@Sexo					VARCHAR(1)		,
+	@Correo					VARCHAR(50)		,
+	@Codigo					VARCHAR(50)		,
+	@Contrasena				VARCHAR(1000)
+AS
+BEGIN
+	INSERT INTO Usuario
+	(
+		 IdRol				
+		,DocumentoIdentidad	
+		,Nombre				
+		,Apellido			
+		,Edad				
+		,Sexo				
+		,Correo				
+		,Codigo				
+		,Contrasena			
+	)  
+	VALUES
+	(
+		 @IdRol				
+		,@DocumentoIdentidad	
+		,@Nombre				
+		,@Apellido			
+		,@Edad				
+		,@Sexo				
+		,@Correo				
+		,@Codigo				
+		,@Contrasena			
+	);
+	SELECT CAST(SCOPE_IDENTITY() AS INT)
+END
+GO
+
+
+DROP PROCEDURE IF EXISTS USP_UPDATE_USUARIO;
+GO
+CREATE PROCEDURE USP_UPDATE_USUARIO
+	@IdUsuario				INT				,
+	@IdRol					INT				,
+	@DocumentoIdentidad		VARCHAR(10)		,
+	@Nombre					VARCHAR(50)		,
+	@Apellido				VARCHAR(50)		,
+	@Edad					INT				,
+	@Sexo					VARCHAR(1)		,
+	@Correo					VARCHAR(50)		
+AS
+BEGIN
+	UPDATE Usuario
+	SET 
+		 IdRol					= @IdRol					
+		,DocumentoIdentidad		= @DocumentoIdentidad	
+		,Nombre					= @Nombre				
+		,Apellido				= @Apellido			
+		,Edad					= @Edad				
+		,Sexo					= @Sexo				
+		,Correo					= @Correo				
+	WHERE IdUsuario = @IdUsuario;
+	SELECT @IdUsuario;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_DELETE_USUARIO;
+GO
+CREATE PROCEDURE USP_DELETE_USUARIO
+	@IdUsuario				INT				
+AS
+BEGIN
+	UPDATE Usuario SET Activo =0 WHERE IdUsuario =@IdUsuario ;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_SELECT_USUARIO_BY_ID;
+GO
+CREATE PROCEDURE USP_SELECT_USUARIO_BY_ID
+	@IdUsuario				INT				
+AS
+BEGIN
+	SELECT 
+		 u.IdUsuario			
+		,u.IdRol				
+		,u.DocumentoIdentidad	
+		,u.Nombre				
+		,u.Apellido			
+		,u.Edad				
+		,u.Sexo				
+		,u.Correo				
+		,u.Codigo				
+		--,u.Contrasena			
+		,u.Activo	
+		
+		,r.IdRol		
+		,r.Descripcion	
+		,r.Activo		
+	FROM Usuario u
+	INNER JOIN Rol r ON r.IdRol= u.IdRol
+	WHERE u.IdUsuario =@IdUsuario
+	AND u.Activo =1;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_SELECT_USUARIO;
+GO
+CREATE PROCEDURE USP_SELECT_USUARIO
+	@IdRol				INT				
+AS
+BEGIN
+	SELECT 
+		 u.IdUsuario			
+		,u.IdRol				
+		,u.DocumentoIdentidad	
+		,u.Nombre				
+		,u.Apellido			
+		,u.Edad				
+		,u.Sexo				
+		,u.Correo				
+		,u.Codigo				
+		--,u.Contrasena			
+		,u.Activo	
+		
+		,r.IdRol		
+		,r.Descripcion	
+		,r.Activo		
+	FROM Usuario u
+	INNER JOIN Rol r ON r.IdRol= u.IdRol
+	WHERE (@IdRol = 0 OR u.IdRol =@IdRol)
+	AND u.Activo =1;
+END
+GO

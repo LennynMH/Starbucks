@@ -34,11 +34,11 @@ CREATE TABLE Usuario(
 	Sexo				VARCHAR(1) NOT NULL,
 	Correo				VARCHAR(50) NOT NULL,
 	Codigo				VARCHAR(50) NOT NULL,
-	Contrasena			VARCHAR(50)NOT NULL,
+	Contrasena			VARCHAR(1000)NOT NULL,
 	Activo				BIT DEFAULT 1 NOT NULL
 )
 
-INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (1,'46827809','administrador','gonzales',30,'M','administrador@hotmail.com','46827809','');
+INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (1,'46827809','administrador','gonzales',30,'M','administrador@hotmail.com','46827809','10000.o2fH5sr9zLLNHtsK2teQ5A==.4xB18YGuyXP5GEzPh8jSgeyAB3lKH0cUSy3jD7yRjCA=');
 INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (2,'45685785','usuario','rios',30,'M','usuario@hotmail.com','45685785','');
 INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (3,'47852632','empleado','perez',30,'M','empleado@hotmail.com','47852632','');
 INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,Codigo,Contrasena) VALUES (4,'49987526','Supervisor','ramirez',30,'M','Supervisor@hotmail.com','49987526','');

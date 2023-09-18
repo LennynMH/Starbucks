@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Core;
+using Domain.DTO.Response.Usuario;
 
 namespace ApplicationCore.Interface.IServices
 {
-   public interface IUsuarioService
+    public interface IUsuarioService
     {
+        Task<HttpResponseResult<UsuarioListarByCodigoResponse>> ListarByCodigo(string? Codigo);
     }
 }

@@ -1,13 +1,11 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.DTO.Response.Acceso
 {
-    public class AccesoValidaUsuarioResponse:UsuarioEntity
+    public class AccesoValidaUsuarioResponse
     {
+        public UsuarioEntity Usuario { get; set; }
+        public string Token { get; set; }
+
     }
 }

@@ -183,5 +183,42 @@ BEGIN
 END
 GO
 /***************************************************************************/
-
--- update Usuario set Contrasena = dbo.fn_EncriptarContraseña('12345')
+DROP PROCEDURE IF EXISTS USP_SELECT_USUARIO_BY_CODIGO;
+GO
+CREATE PROCEDURE USP_SELECT_USUARIO_BY_CODIGO
+	@Codigo				VARCHAR(100)
+AS
+BEGIN
+	/*
+	SELECT 
+		 u.IdUsuario			
+		,u.DocumentoIdentidad	
+		,u.Codigo				
+		,u.Contrasena			
+	FROM Usuario u
+	WHERE Codigo =@Codigo
+	AND u.Activo =1;
+	*/
+	SELECT 
+		 u.IdUsuario			
+		,u.IdRol				
+		,u.DocumentoIdentidad	
+		,u.Nombre				
+		,u.Apellido			
+		,u.Edad				
+		,u.Sexo				
+		,u.Correo				
+		,u.Codigo				
+		,u.Contrasena			
+		,u.Activo	
+		
+		,r.IdRol		
+		,r.Descripcion	
+		,r.Activo		
+	FROM Usuario u
+	INNER JOIN Rol r ON r.IdRol= u.IdRol
+	WHERE Codigo =@Codigo
+	AND u.Activo =1;
+END
+GO
+/***************************************************************************/

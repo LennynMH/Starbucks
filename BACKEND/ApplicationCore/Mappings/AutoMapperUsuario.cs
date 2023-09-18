@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Domain.DTO.Response.Usuario;
+using Domain.Entities;
 
 namespace ApplicationCore.Mappings
 {
-    public class AutoMapperUsuario
+    public class AutoMapperUsuario : Profile
     {
+        public AutoMapperUsuario()
+        {
+            //Usuario
+            CreateMap<UsuarioEntity, UsuarioListarByCodigoResponse>();
+        }
     }
+
 }

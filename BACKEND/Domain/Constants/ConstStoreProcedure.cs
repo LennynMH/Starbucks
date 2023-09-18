@@ -5,8 +5,8 @@
 
         public static class Usuario
         {
-
-        }  
+            public const string USP_SELECT_USUARIO_BY_CODIGO = "USP_SELECT_USUARIO_BY_CODIGO";
+        }
         public static class Rol
         { 
             public const string USP_CREATE_ROL = "USP_CREATE_ROL";

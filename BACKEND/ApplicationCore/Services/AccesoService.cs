@@ -19,12 +19,12 @@ namespace ApplicationCore.Services
             this._mapper = mapper;
         }
 
-        public async Task<HttpResponseResult<AccesoValidaUsuarioResponse>> ValidaAccesoUsuario(AccesoValidaUsuarioResquest query)
-        {
-            var result = await this._accesoRepository.ValidaAccesoUsuario(query.Codigo, query.Contrasena);
-            var responsemapper = _mapper.Map<AccesoValidaUsuarioResponse>(result);
-            var response = new HttpResponseResult<AccesoValidaUsuarioResponse>() { Data = responsemapper };
-            return response;
-        }
+        //public async Task<HttpResponseResult<AccesoValidaUsuarioResponse>> ValidaAccesoUsuario(AccesoValidaUsuarioResquest query)
+        //{
+        //    var result = await this._accesoRepository.ValidaAccesoUsuario(query.Codigo, query.Contrasena);
+        //    var responsemapper = _mapper.Map<AccesoValidaUsuarioResponse>(result);
+        //    var response = new HttpResponseResult<AccesoValidaUsuarioResponse>() { Data = responsemapper };
+        //    return response;
+        //}
     }
 }

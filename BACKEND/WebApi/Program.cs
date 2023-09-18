@@ -1,4 +1,5 @@
 using ApplicationCore.Exceptions;
+using Domain.Options;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Sinks.Elasticsearch;
@@ -8,6 +9,8 @@ using WebApi.Core;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
+
+var configuration = builder.Configuration;
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -21,6 +24,10 @@ builder.Services.AddInfrastructure();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.Configure<ContraseniaOptions>(configuration.GetSection("PasswordOptions"));
+
+builder.Services.Configure<AuthenticationOptions>(configuration.GetSection("Authentications"));
+
 builder.Services.AddCors(p => p.AddPolicy(MyAllowSpecificOrigins, builder =>
 {
     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
@@ -29,7 +36,6 @@ builder.Services.AddCors(p => p.AddPolicy(MyAllowSpecificOrigins, builder =>
 ConfigureLogging();
 
 builder.Host.UseSerilog();
-
 
 
 var app = builder.Build();
@@ -74,7 +80,6 @@ void ConfigureLogging()
 ElasticsearchSinkOptions ConfigureElasticSink(IConfigurationRoot configuration, string environment)
 {
     var nameIndex = $"{Assembly.GetExecutingAssembly().GetName().Name.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}";
-    //var nameIndex = "mslogs-{0:yyyy.MM.dd}";
     var uriString = new Uri(configuration["ElasticConfiguration:Uri"]);
     return new ElasticsearchSinkOptions(uriString)
     {

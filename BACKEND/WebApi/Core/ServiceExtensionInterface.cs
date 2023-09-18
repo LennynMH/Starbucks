@@ -36,6 +36,7 @@ namespace WebApi.Core
             services.AddTransient<IRolService, RolService>();
             services.AddTransient<IOrdenService, OrdenService>();
             services.AddTransient<IUsuarioService, UsuarioService>();
+            services.AddTransient<IContraseniaService, ContraseniaService>();
 
             #endregion Services
         }

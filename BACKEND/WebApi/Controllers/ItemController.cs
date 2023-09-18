@@ -3,6 +3,7 @@ using ApplicationCore.Services;
 using Domain.Core;
 using Domain.DTO.Request.Rol;
 using Domain.DTO.Response.Item;
+using Domain.DTO.Response.Rol;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -70,5 +71,29 @@ namespace WebApi.Controllers
             return Ok(await _itemService.Eliminar(IdItem));
         }
 
+
+        /// <summary>
+        /// Crear Método que obtiene item x id
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>listar item x id</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /ListarById
+        ///     {
+        ///         IdItem :1
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
+        [HttpGet("ListarById")]
+        [ProducesResponseType(typeof(ItemListarByIdResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> ListarById(int IdItem)
+        {
+            return Ok(await _itemService.ListarById(IdItem));
+        }
     }
 }

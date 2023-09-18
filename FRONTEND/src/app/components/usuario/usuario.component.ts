@@ -59,7 +59,6 @@ export class UsuarioComponent extends ComponentBase implements OnInit {
 
   Insert(params: any) {
     debugger;
-    console.log(`params: ${JSON.stringify(params)}`);
     if (params.idUsuario !== 0) {
       this.service.Update(params).subscribe(
         (response) => {

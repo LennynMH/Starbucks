@@ -30,11 +30,11 @@
         }
         public static class Item
         {
-            //public const string USP_CREATE_ROL = "USP_CREATE_ROL";
-            //public const string USP_UPDATE_ROL = "USP_UPDATE_ROL";
+            public const string USP_CREATE_ITEMS = "USP_CREATE_ITEMS";
+            public const string USP_UPDATE_ITEMS = "USP_UPDATE_ITEMS";
             public const string USP_DELETE_ITEMS = "USP_DELETE_ITEMS";
             public const string USP_SELECT_ITEMS = "USP_SELECT_ITEMS";
-            //public const string USP_SELECT_ROL_BY_ID = "USP_SELECT_ROL_BY_ID";
+            public const string USP_SELECT_ITEMS_BY_ID = "USP_SELECT_ITEMS_BY_ID";
         }
         public static class Acceso
         {

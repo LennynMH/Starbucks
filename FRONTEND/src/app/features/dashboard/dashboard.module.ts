@@ -22,6 +22,7 @@ import { UsuarioPopupComponent } from 'src/app/components/usuario/usuario-popup/
 import { RolesComponent } from 'src/app/components/roles/roles.component';
 import { RolesPopupComponent } from 'src/app/components/roles/roles-popup/roles-popup.component';
 import { ItemsComponent } from 'src/app/components/items/items.component';
+import { ItemsPopupComponent } from 'src/app/components/items/items-popup/items-popup.component';
 import { AuthInterceptor } from 'src/app/features/authentication/guards/auth.intercetor';
 
 @NgModule({
@@ -32,8 +33,9 @@ import { AuthInterceptor } from 'src/app/features/authentication/guards/auth.int
     RolesComponent,
     RolesPopupComponent,
     ItemsComponent,
+    ItemsPopupComponent,
+    
     ModalComponent,
-
     NavbarComponent
   ],
   imports: [

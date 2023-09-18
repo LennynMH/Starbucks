@@ -35,6 +35,47 @@ export class ItemsComponent extends ComponentBase implements OnInit {
       });
   }
 
+  
+  Insert(params: any) {
+    debugger;
+    console.log(`params: ${JSON.stringify(params)}`);
+    // if (params.idUsuario !== 0) {
+    //   this.service.Update(params).subscribe(
+    //     (response) => {
+    //       try {
+    //         if (response.success) {
+    //           this.Listar();
+    //           this.toastr.success("Edición exitosa");
+    //         }
+    //       }
+    //       catch (error) {
+    //         this.toastr.error("Error en la edición");
+    //       }
+    //     },
+    //     (error) => {
+    //       this.ManageErrors(error);
+    //     });
+    // }
+    // else {
+    //   this.service.Insert(params).subscribe(
+    //     (response) => {
+    //       try {
+    //         if (response.success) {
+    //           this.Listar();
+    //           this.toastr.success("Creación exitosa");
+    //         }
+    //       }
+    //       catch (error) {
+    //         this.toastr.error("Error en la inserción");
+    //       }
+    //     },
+    //     (error) => {
+    //       this.ManageErrors(error);
+    //     });
+    // }
+    this.isOpenModal = false;
+  }
+
   Delete(id: number) {
     if (confirm('¿Desea deshabilitar el registro?')) {
       this.service.Delete(id).subscribe(

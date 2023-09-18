@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Core;
 using Domain.DTO.Request.Item;
 using Domain.DTO.Response.Item;
+using Domain.DTO.Response.Rol;
 using Domain.Entities;
 
 namespace ApplicationCore.Services
@@ -34,6 +35,14 @@ namespace ApplicationCore.Services
             var parammapper = _mapper.Map<ItemEntity>(param);
             var responsemapper = await _itemRepository.Eliminar(parammapper);
             var response = new HttpResponseResult<int>() { Data = responsemapper };
+            return response;
+        }
+
+        public async Task<HttpResponseResult<ItemListarByIdResponse>> ListarById(int IdItem)
+        {
+            var result = await this._itemRepository.ListarById(IdItem);
+            var responsemapper = _mapper.Map<ItemListarByIdResponse>(result);
+            var response = new HttpResponseResult<ItemListarByIdResponse>() { Data = responsemapper };
             return response;
         }
     }

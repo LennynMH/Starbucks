@@ -376,3 +376,34 @@ BEGIN
 	UPDATE Item SET Activo =0 WHERE IdItem =@IdItem ;
 END
 GO
+
+DROP PROCEDURE IF EXISTS USP_SELECT_ITEMS_BY_ID;
+GO
+CREATE PROCEDURE USP_SELECT_ITEMS_BY_ID
+	@IdItem				INT				
+AS
+BEGIN
+	SELECT 
+		i.IdItem	,			
+		i.Descripcion	,		
+		i.Costo		,
+		i.Activo		
+	FROM Item i
+	WHERE i.IdItem =@IdItem 
+	AND i.Activo =1;
+
+	SELECT
+		d.IdItemMateriPrima	,
+		d.IdMateriaPrima	,		
+		d.IdItem			,	
+
+		m.IdMateriaPrima	,	
+		m.Descripcion		,	
+		m.Cantidad			,
+		m.UnidadMedida		,
+		m.Activo			
+	FROM ItemMateriaPrima d
+	INNER JOIN MateriaPrima m on m.IdMateriaPrima = d.IdMateriaPrima
+	WHERE d.IdItem =@IdItem; 
+END
+GO

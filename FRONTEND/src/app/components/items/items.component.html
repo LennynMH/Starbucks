@@ -32,3 +32,5 @@
         </table>
     </div>
 </div>
+<app-items-popup (eventInsert)="Insert($event)" (close)="isOpenModal = $event" *ngIf="isOpenModal">
+</app-items-popup>

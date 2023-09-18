@@ -1,0 +1,64 @@
+<app-modal (close)="closeModal($event)" [title]="tituloModal">
+    <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
+        <input type="hidden" name="Id" [value]="requestentity.idItem" />
+        <!-- 
+            <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" placeholder="nombre" name="nombre" #nombre="ngModel"
+                [(ngModel)]="requestentity.nombre" required [class.invalid]="nombre.invalid && nombre.touched">
+        </div>
+        <div class="form-group">
+            <label>Apellido</label>
+            <input type="text" class="form-control" placeholder="apellido" name="apellido" #apellido="ngModel"
+                [(ngModel)]="requestentity.apellido" required [class.invalid]="apellido.invalid && apellido.touched">
+        </div>
+        <div class="form-group">
+            <label>Documento de Identidad</label>
+            <input type="text" class="form-control" placeholder="documentoIdentidad" name="documentoIdentidad"
+                #documentoIdentidad="ngModel" [(ngModel)]="requestentity.documentoIdentidad" required
+                [class.invalid]="documentoIdentidad.invalid && documentoIdentidad.touched">
+        </div>
+        <div class="form-group">
+            <label>Rol</label>
+            <select class="form-control" name="Rol" #Rol="ngModel" [(ngModel)]="requestentity.idRol"
+                (ngModelChange)="onChangeRol($event)" required [class.invalid]="Rol.invalid && Rol.touched">
+                <option value="">Seleccione</option>
+                <option *ngFor="let rol of listRol" [value]="rol.idRol">{{rol.descripcion}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <label>Edad</label>
+                <input type="number" class="form-control" placeholder="Edad" name="Edad" #Edad="ngModel"
+                    [(ngModel)]="requestentity.edad" required [class.invalid]="Edad.invalid && Edad.touched">
+            </div>
+            <div class="col-md-6">
+                <label>Sexo</label>
+                <select class="form-control" name="Sexo" #Sexo="ngModel" [(ngModel)]="requestentity.sexo"
+                    (ngModelChange)="onChangeSexo($event)" required [class.invalid]="Sexo.invalid && Sexo.touched">
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Correo</label>
+            <input type="text" class="form-control" placeholder="correo" name="correo" #correo="ngModel"
+                [(ngModel)]="requestentity.correo" required [class.invalid]="correo.invalid && correo.touched">
+        </div>
+        <div class="form-group">
+            <label>Codigo</label>
+            <input type="text" class="form-control" placeholder="codigo" name="codigo" #codigo="ngModel"
+                [(ngModel)]="requestentity.codigo" required [class.invalid]="codigo.invalid && codigo.touched">
+        </div> 
+    -->
+        <div class="d-grid gap-2 col-6 mx-auto mt-4">
+            <button class="btn btn-info btn-block" type="submit" [disabled]="form.invalid">Guardar</button>
+        </div>
+    </form>
+</app-modal>
+<style>
+    ::ng-deep .cdk-overlay-container {
+        z-index: 2000;
+    }
+</style>

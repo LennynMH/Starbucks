@@ -51,6 +51,11 @@ CREATE TABLE MateriaPrima(
 	UnidadMedida		VARCHAR(5),
 	--Precio				DECIMAL(10,2) NOT NULL,
 )
+INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('CAFE',8,'KL');
+INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('AZUCAR',5,'KL');
+INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('LECHE',10,'LT');
+INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('FRESAS',3,'KL');
+-- SELECT * FROM MateriaPrima
 
 CREATE TABLE Item(
 	IdItem				INT IDENTITY PRIMARY KEY,

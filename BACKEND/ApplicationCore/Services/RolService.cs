@@ -35,9 +35,10 @@ namespace ApplicationCore.Services
             var response = new HttpResponseResult<int>() { Data = responsemapper };
             return response;
         }
-
-        public async Task<HttpResponseResult<int>> Eliminar(RolEliminarRequest param)
+        //public async Task<HttpResponseResult<int>> Eliminar(RolEliminarRequest param)
+        public async Task<HttpResponseResult<int>> Eliminar(int IdRol)
         {
+            var param = new RolEliminarRequest { IdRol = IdRol };
             var parammapper = _mapper.Map<RolEntity>(param);
             var responsemapper = await _rolRepository.Eliminar(parammapper);
             var response = new HttpResponseResult<int>() { Data = responsemapper };

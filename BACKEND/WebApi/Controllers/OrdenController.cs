@@ -6,7 +6,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrdenController : ControllerBase
+    public class OrdenController : BaseAutenticateController
     {
         private readonly ILogger<OrdenController> _logger;
         private readonly IOrdenService _ordenService;

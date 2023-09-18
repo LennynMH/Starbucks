@@ -10,7 +10,7 @@ namespace WebApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
-    public class EstadoController : ControllerBase
+    public class EstadoController : BaseAutenticateController
     {
         private readonly ILogger<EstadoController> _logger;
         private readonly IEstadoService _estadoService;

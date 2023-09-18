@@ -6,7 +6,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MateriaPrimaController : ControllerBase
+    public class MateriaPrimaController : BaseAutenticateController
     {
         private readonly ILogger<MateriaPrimaController> _logger;
         private readonly IMateriaPrimaService _materiaPrimaService;

@@ -9,7 +9,8 @@ namespace ApplicationCore.Interface.IServices
     {
         Task<HttpResponseResult<int>> Registrar(RolRegistrarRequest param);
         Task<HttpResponseResult<int>> Actualizar(RolActualizarRequest param);
-        Task<HttpResponseResult<int>> Eliminar(RolEliminarRequest param);
+        Task<HttpResponseResult<int>> Eliminar(int IdRol);
+        //Task<HttpResponseResult<int>> Eliminar(RolEliminarRequest param);
         Task<HttpResponseResult<List<RolListarResponse>>> Listar();
         Task<HttpResponseResult<RolListarByIdResponse>> ListarById(int IdRol);
     }

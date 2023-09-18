@@ -6,7 +6,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemController : ControllerBase
+    public class ItemController : BaseAutenticateController
     {
         private readonly ILogger<ItemController> _logger;
         private readonly IItemService _itemService;

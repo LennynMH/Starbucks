@@ -6,7 +6,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FacturacionController : ControllerBase
+    public class FacturacionController : BaseAutenticateController
     {
         private readonly ILogger<FacturacionController> _logger;
         private readonly IFacturacionService _facturacionService;

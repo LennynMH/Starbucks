@@ -6,6 +6,6 @@ namespace ApplicationCore.Interface.IServices
 {
     public interface IAccesoService
     {
-        //Task<HttpResponseResult<AccesoValidaUsuarioResponse>> ValidaAccesoUsuario(AccesoValidaUsuarioResquest query);
+        Task<HttpResponseResult<AccesoValidaUsuarioResponse>> ValidaAccesoUsuario(AccesoValidaUsuarioResquest query);
     }
 }

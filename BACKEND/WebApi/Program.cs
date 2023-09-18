@@ -18,8 +18,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen();
-
 builder.Services.AddInfrastructure();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -33,6 +31,12 @@ builder.Services.AddCors(p => p.AddPolicy(MyAllowSpecificOrigins, builder =>
     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
 
+builder.Services.AddCustomSwagger(configuration)
+                .AddCustomHealthChecks(configuration)
+                .AddCustomSecuritySwagger(configuration)
+                .AddCustomIntegrations(configuration);
+
+
 ConfigureLogging();
 
 builder.Host.UseSerilog();
@@ -43,11 +47,18 @@ var app = builder.Build();
 app.UseCors(MyAllowSpecificOrigins);
 
 // Configure the HTTP request pipeline.
-app.UseSwagger();
+app.UseSwagger()
+   .UseSwaggerUI(c =>
+   {
+       c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Demo");
+       c.OAuthClientId("CofideSeguridadApi");
+       c.OAuthAppName("SPB Api");
+   });
 
-app.UseSwaggerUI();
 
 app.UseCors(MyAllowSpecificOrigins);
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

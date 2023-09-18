@@ -10,7 +10,7 @@ namespace WebApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
-    public class RolController : ControllerBase
+    public class RolController : BaseAutenticateController
     {
         private readonly ILogger<RolController> _logger;
         private readonly IRolService _rolService;
@@ -85,12 +85,13 @@ namespace WebApi.Controllers
         /// </remarks>
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
-        [HttpDelete("Eliminar")]
+        //[HttpDelete("Eliminar")]
+        [HttpDelete("Eliminar/{IdRol:int}")]
         [ProducesResponseType(typeof(RolEliminarRequest), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Eliminar([FromBody] RolEliminarRequest query)
+        public async Task<IActionResult> Eliminar(int IdRol)
         {
-            return Ok(await _rolService.Eliminar(query));
+            return Ok(await _rolService.Eliminar(IdRol));
         }
 
 

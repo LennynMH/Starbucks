@@ -2,6 +2,7 @@
 using ApplicationCore.Interface.IServices;
 using AutoMapper;
 using Domain.Core;
+using Domain.DTO.Request.Estado;
 using Domain.DTO.Response.Estado;
 using Domain.Entities;
 
@@ -19,7 +20,7 @@ namespace ApplicationCore.Services
             this._mapper = mapper;
         }
 
-        public async Task<HttpResponseResult<int>> Registrar(EstadoRegistrar param)
+        public async Task<HttpResponseResult<int>> Registrar(EstadoRegistrarResquest param)
         {
             var parammapper = _mapper.Map<EstadoEntity>(param);
             var responsemapper = await _rolRepository.Registrar(parammapper);
@@ -27,7 +28,7 @@ namespace ApplicationCore.Services
             return response;
         }
 
-        public async Task<HttpResponseResult<int>> Actualizar(EstadoActualizar param)
+        public async Task<HttpResponseResult<int>> Actualizar(EstadoActualizarRequest param)
         {
             var parammapper = _mapper.Map<EstadoEntity>(param);
             var responsemapper = await _rolRepository.Actualizar(parammapper);
@@ -35,7 +36,7 @@ namespace ApplicationCore.Services
             return response;
         }
 
-        public async Task<HttpResponseResult<int>> Eliminar(EstadoEliminar param)
+        public async Task<HttpResponseResult<int>> Eliminar(EstadoEliminarRequest param)
         {
             var parammapper = _mapper.Map<EstadoEntity>(param);
             var responsemapper = await _rolRepository.Eliminar(parammapper);
@@ -43,19 +44,19 @@ namespace ApplicationCore.Services
             return response;
         }
 
-        public async Task<HttpResponseResult<List<EstadoListarDto>>> Listar()
+        public async Task<HttpResponseResult<List<EstadoListarResponse>>> Listar()
         {
             var result = await this._rolRepository.Listar();
-            var responsemapper = _mapper.Map<IEnumerable<EstadoListarDto>>(result);
-            var response = new HttpResponseResult<List<EstadoListarDto>>() { Data = responsemapper.ToList<EstadoListarDto>() };
+            var responsemapper = _mapper.Map<IEnumerable<EstadoListarResponse>>(result);
+            var response = new HttpResponseResult<List<EstadoListarResponse>>() { Data = responsemapper.ToList<EstadoListarResponse>() };
             return response;
         }
 
-        public async Task<HttpResponseResult<EstadoListarByIdDto>> ListarById(int IdEstado)
+        public async Task<HttpResponseResult<EstadoListarByIdResponse>> ListarById(int IdEstado)
         {
             var result = await this._rolRepository.ListarById(IdEstado);
-            var responsemapper = _mapper.Map<EstadoListarByIdDto>(result);
-            var response = new HttpResponseResult<EstadoListarByIdDto>() { Data = responsemapper };
+            var responsemapper = _mapper.Map<EstadoListarByIdResponse>(result);
+            var response = new HttpResponseResult<EstadoListarByIdResponse>() { Data = responsemapper };
             return response;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Interface.IServices;
 using Domain.Core;
+using Domain.DTO.Request.Rol;
 using Domain.DTO.Response.Rol;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -37,9 +38,9 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpPost("Registrar")]
-        [ProducesResponseType(typeof(RolListarDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(RolRegistrarRequest), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Registrar([FromBody] RolRegistrar query)
+        public async Task<IActionResult> Registrar([FromBody] RolRegistrarRequest query)
         {
             return Ok(await _rolService.Registrar(query));
         }
@@ -61,9 +62,9 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpPut("Actualizar")]
-        [ProducesResponseType(typeof(RolListarDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(RolActualizarRequest), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Actualizar([FromBody] RolActualizar query)
+        public async Task<IActionResult> Actualizar([FromBody] RolActualizarRequest query)
         {
             return Ok(await _rolService.Actualizar(query));
         }
@@ -85,9 +86,9 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpDelete("Eliminar")]
-        [ProducesResponseType(typeof(RolListarDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(RolEliminarRequest), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Eliminar([FromBody] RolEliminar query)
+        public async Task<IActionResult> Eliminar([FromBody] RolEliminarRequest query)
         {
             return Ok(await _rolService.Eliminar(query));
         }
@@ -109,7 +110,7 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpPost("Listar")]
-        [ProducesResponseType(typeof(RolListarDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(RolListarResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Listar()
         {
@@ -134,7 +135,7 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpGet("ListarById")]
-        [ProducesResponseType(typeof(RolListarDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(RolListarByIdResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> ListarById(int IdRol)
         {

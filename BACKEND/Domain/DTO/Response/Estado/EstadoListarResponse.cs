@@ -2,7 +2,7 @@
 
 namespace Domain.DTO.Response.Estado
 {
-    public class EstadoListarDto : EstadoEntity
+    public class EstadoListarResponse : EstadoEntity
     {
     }
 }

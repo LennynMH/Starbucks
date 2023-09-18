@@ -4,6 +4,23 @@ GO
 USE [BD_STARBUCKS]
 GO
 
+/***************************************************************************/
+DROP FUNCTION IF EXISTS fn_EncriptarContraseña;
+GO
+CREATE FUNCTION  fn_EncriptarContraseña
+(
+	@Clave VARCHAR(50)
+)
+RETURNS VARCHAR(100)
+AS
+BEGIN
+	declare @resultado varchar(100) = ''
+	set @resultado = UPPER(master.dbo.fn_varbintohexsubstring(0, HashBytes('SHA1', @Clave), 1, 0))
+	return @resultado
+END
+GO
+/***************************************************************************/
+
 DROP PROCEDURE IF EXISTS USP_CREATE_ROL;
 GO
 CREATE PROCEDURE USP_CREATE_ROL
@@ -132,5 +149,39 @@ BEGIN
 END
 GO
 /***************************************************************************/
+DROP PROCEDURE IF EXISTS USP_SELECT_USUARIO_BY_ACCESO;
+GO
+CREATE PROCEDURE USP_SELECT_USUARIO_BY_ACCESO
+	@Codigo				VARCHAR(100),
+	@Contrasena			VARCHAR(100)
+AS
+BEGIN
+	DECLARE @clave VARCHAR(100) = (SELECT dbo.fn_EncriptarContraseña(@Contrasena))  
 
+	SELECT 
+		 u.IdUsuario			
+		,u.IdRol				
+		,u.DocumentoIdentidad	
+		,u.Nombre				
+		,u.Apellido			
+		,u.Edad				
+		,u.Sexo				
+		,u.Correo				
+		,u.Codigo				
+		--,u.Contrasena			
+		,u.Activo	
+		
+		,r.IdRol		
+		,r.Descripcion	
+		,r.Activo		
+	FROM Usuario u
+	INNER JOIN Rol r ON r.IdRol= u.IdRol
+	WHERE Codigo =@Codigo
+	--AND Contrasena = @Contrasena
+	AND Contrasena = @clave
+	AND u.Activo =1;
+END
+GO
+/***************************************************************************/
 
+-- update Usuario set Contrasena = dbo.fn_EncriptarContraseña('12345')

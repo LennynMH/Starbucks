@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Interface.IRepositories;
 using Dapper;
+using Domain.Constants;
 using Domain.Entities;
 using Infrastructure.Conecction.Dapper;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +25,7 @@ namespace Infrastructure.Repositories
                 {
                     try
                     {
-                        result = await dbConnection.QuerySingleAsync<int>("USP_CREATE_ESTADO",
+                        result = await dbConnection.QuerySingleAsync<int>(ConstStoreProcedure.Estado.USP_CREATE_ESTADO,
                             new
                             {
                                 param.Descripcion
@@ -54,7 +55,7 @@ namespace Infrastructure.Repositories
                 {
                     try
                     {
-                        result = await dbConnection.QuerySingleAsync<int>("USP_UPDATE_ESTADO",
+                        result = await dbConnection.QuerySingleAsync<int>(ConstStoreProcedure.Estado.USP_UPDATE_ESTADO,
                            new
                            {
                                param.IdEstado,
@@ -85,7 +86,7 @@ namespace Infrastructure.Repositories
                 {
                     try
                     {
-                        result = await dbConnection.ExecuteAsync("USP_DELETE_ESTADO",
+                        result = await dbConnection.ExecuteAsync(ConstStoreProcedure.Estado.USP_DELETE_ESTADO,
                            new
                            {
                                param.IdEstado,
@@ -110,7 +111,7 @@ namespace Infrastructure.Repositories
             using (var dbConnection = ObtenerConexion())
             {
                 var result = await dbConnection.QueryAsync<EstadoEntity>(
-                  "USP_SELECT_ESTADO",
+                   ConstStoreProcedure.Estado.USP_SELECT_ESTADO,
                   new
                   {
                   }, commandType: CommandType.StoredProcedure);
@@ -123,7 +124,7 @@ namespace Infrastructure.Repositories
             using (var dbConnection = ObtenerConexion())
             {
                 var result = await dbConnection.QueryAsync<EstadoEntity>(
-                  "USP_SELECT_ESTADO_BY_ID",
+                  ConstStoreProcedure.Estado.USP_SELECT_ESTADO_BY_ID,
                   new
                   {
                       IdEstado

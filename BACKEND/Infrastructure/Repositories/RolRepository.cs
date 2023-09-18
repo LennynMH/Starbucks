@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Interface.IRepositories;
 using Dapper;
+using Domain.Constants;
 using Domain.Entities;
 using Infrastructure.Conecction.Dapper;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,7 @@ namespace Infrastructure.Repositories
                 {
                     try
                     {
-                        result = await dbConnection.QuerySingleAsync<int>("USP_CREATE_ROL",
+                        result = await dbConnection.QuerySingleAsync<int>(ConstStoreProcedure.Rol.USP_CREATE_ROL,
                             new
                             {
                                 param.Descripcion
@@ -55,7 +56,7 @@ namespace Infrastructure.Repositories
                 {
                     try
                     {
-                        result = await dbConnection.QuerySingleAsync<int>("USP_UPDATE_ROL",
+                        result = await dbConnection.QuerySingleAsync<int>(ConstStoreProcedure.Rol.USP_UPDATE_ROL,
                            new
                            {
                                param.IdRol,
@@ -86,7 +87,7 @@ namespace Infrastructure.Repositories
                 {
                     try
                     {
-                        result = await dbConnection.ExecuteAsync("USP_DELETE_ROL",
+                        result = await dbConnection.ExecuteAsync(ConstStoreProcedure.Rol.USP_DELETE_ROL,
                            new
                            {
                                param.IdRol,
@@ -111,7 +112,7 @@ namespace Infrastructure.Repositories
             using (var dbConnection = ObtenerConexion())
             {
                 var result = await dbConnection.QueryAsync<RolEntity>(
-                  "USP_SELECT_ROL",
+                  ConstStoreProcedure.Rol.USP_SELECT_ROL,
                   new
                   {
                   }, commandType: CommandType.StoredProcedure);
@@ -124,7 +125,7 @@ namespace Infrastructure.Repositories
             using (var dbConnection = ObtenerConexion())
             {
                 var result = await dbConnection.QueryAsync<RolEntity>(
-                  "USP_SELECT_ROL_BY_ID",
+                ConstStoreProcedure.Rol.USP_SELECT_ROL_BY_ID,
                   new
                   {
                       IdRol

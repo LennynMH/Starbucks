@@ -2,7 +2,7 @@
 
 namespace Domain.DTO.Response.Rol
 {
-    public class RolListarDto : RolEntity
+    public class RolListarByIdResponse : RolEntity
     {
     }
 }

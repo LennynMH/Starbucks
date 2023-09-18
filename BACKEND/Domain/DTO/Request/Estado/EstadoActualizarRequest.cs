@@ -1,6 +1,6 @@
-﻿namespace Domain.DTO.Response.Estado
+﻿namespace Domain.DTO.Request.Estado
 {
-    public class EstadoActualizar
+    public class EstadoActualizarRequest
     {
         public int IdEstado { get; set; }
         public string? Descripcion { get; set; }

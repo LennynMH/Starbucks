@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Interface.IServices;
 using Domain.Core;
+using Domain.DTO.Request.Estado;
 using Domain.DTO.Response.Estado;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -37,9 +38,9 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpPost("Registrar")]
-        [ProducesResponseType(typeof(EstadoListarDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(EstadoRegistrarResquest), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Registrar([FromBody] EstadoRegistrar query)
+        public async Task<IActionResult> Registrar([FromBody] EstadoRegistrarResquest query)
         {
             return Ok(await _estadoService.Registrar(query));
         }
@@ -61,9 +62,9 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpPut("Actualizar")]
-        [ProducesResponseType(typeof(EstadoListarDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(EstadoActualizarRequest), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Actualizar([FromBody] EstadoActualizar query)
+        public async Task<IActionResult> Actualizar([FromBody] EstadoActualizarRequest query)
         {
             return Ok(await _estadoService.Actualizar(query));
         }
@@ -85,9 +86,9 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpDelete("Eliminar")]
-        [ProducesResponseType(typeof(EstadoListarDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(EstadoEliminarRequest), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Eliminar([FromBody] EstadoEliminar query)
+        public async Task<IActionResult> Eliminar([FromBody] EstadoEliminarRequest query)
         {
             return Ok(await _estadoService.Eliminar(query));
         }
@@ -109,7 +110,7 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpPost("Listar")]
-        [ProducesResponseType(typeof(EstadoListarDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(EstadoListarResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Listar()
         {
@@ -134,7 +135,7 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpGet("ListarById")]
-        [ProducesResponseType(typeof(EstadoListarDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(EstadoListarByIdResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> ListarById(int IdEstado)
         {

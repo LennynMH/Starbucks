@@ -50,6 +50,8 @@ CREATE TABLE MateriaPrima(
 	Cantidad			INT,
 	UnidadMedida		VARCHAR(5),
 	--Precio				DECIMAL(10,2) NOT NULL,
+	Activo				BIT DEFAULT 1 NOT NULL
+
 )
 INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('CAFE',8,'KL');
 INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('AZUCAR',5,'KL');
@@ -61,7 +63,10 @@ CREATE TABLE Item(
 	IdItem				INT IDENTITY PRIMARY KEY,
 	Descripcion			VARCHAR(100) NOT NULL,
 	Costo				DECIMAL(10,2) NOT NULL,
+	Activo				BIT DEFAULT 1 NOT NULL
 )
+-- INSERT INTO Item(Descripcion,Costo) values ('test',3);
+-- INSERT INTO Item(Descripcion,Costo) values ('test2',2);
 
 CREATE TABLE ItemMateriaPrima(
 	IdItemMateriPrima	INT IDENTITY PRIMARY KEY,

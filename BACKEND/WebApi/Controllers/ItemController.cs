@@ -1,6 +1,10 @@
 ﻿using ApplicationCore.Interface.IServices;
-using Microsoft.AspNetCore.Http;
+using ApplicationCore.Services;
+using Domain.Core;
+using Domain.DTO.Request.Rol;
+using Domain.DTO.Response.Item;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace WebApi.Controllers
 {
@@ -18,6 +22,53 @@ namespace WebApi.Controllers
             this._logger = logger;
         }
 
+
+        /// <summary>
+        /// Crear Método que obtiene items
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>listar items</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Listar
+        ///     {
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
+        [HttpPost("Listar")]
+        [ProducesResponseType(typeof(ItemListarResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Listar()
+        {
+            return Ok(await _itemService.Listar());
+        }
+
+
+        /// <summary>
+        /// Crear Método que eliminar items
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>eliminar items</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     DELETE /Eliminar
+        ///     {
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
+        [HttpDelete("Eliminar/{IdItem:int}")]
+        [ProducesResponseType(typeof(RolEliminarRequest), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Eliminar(int IdItem)
+        {
+            return Ok(await _itemService.Eliminar(IdItem));
+        }
 
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Core;
+using Domain.DTO.Response.Item;
 
 namespace ApplicationCore.Interface.IServices
 {
-   public interface IItemService
+    public interface IItemService
     {
+        Task<HttpResponseResult<List<ItemListarResponse>>> Listar();
+        Task<HttpResponseResult<int>> Eliminar(int IdItem);
     }
 }

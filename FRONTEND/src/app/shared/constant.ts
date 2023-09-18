@@ -11,6 +11,9 @@ export const IncomeWebApi = {
     UsuarioListar: "/api/Usuario/Listar",
     UsuarioListarById: "/api/Usuario/ListarById",
     UsuarioEliminar: "/api/Usuario/Eliminar",
+
+    ItemListar: "/api/Item/Listar",
+    ItemEliminar: "/api/Item/Eliminar",
 }
 export const RolesWebApi = {
     Administrador: "1",

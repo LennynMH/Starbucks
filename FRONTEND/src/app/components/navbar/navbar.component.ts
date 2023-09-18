@@ -22,7 +22,6 @@ export class NavbarComponent implements OnInit {
     let usuario = JSON.parse(localStorage.getItem("SessionUsuario"));
     let isLogin = JSON.parse(localStorage.getItem("isLogin"));
     this.isLoggedIn = isLogin > 0 ? true : false;
-    
     this.idRol = usuario.rol.idRol;
     this.Usuario = usuario.nombre + " - " + usuario.apellido;
     this.RolNombre = usuario.rol.descripcion;

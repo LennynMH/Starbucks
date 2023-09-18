@@ -28,6 +28,14 @@
             public const string USP_SELECT_ESTADO = "USP_SELECT_ESTADO";
             public const string USP_SELECT_ESTADO_BY_ID = "USP_SELECT_ESTADO_BY_ID";
         }
+        public static class Item
+        {
+            //public const string USP_CREATE_ROL = "USP_CREATE_ROL";
+            //public const string USP_UPDATE_ROL = "USP_UPDATE_ROL";
+            public const string USP_DELETE_ITEMS = "USP_DELETE_ITEMS";
+            public const string USP_SELECT_ITEMS = "USP_SELECT_ITEMS";
+            //public const string USP_SELECT_ROL_BY_ID = "USP_SELECT_ROL_BY_ID";
+        }
         public static class Acceso
         {
             public const string USP_SELECT_USUARIO_BY_ACCESO = "USP_SELECT_USUARIO_BY_ACCESO";

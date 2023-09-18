@@ -4,6 +4,8 @@ import { AuthorizationGuard } from '../authentication/guards/auth.guard';
 import { DashboardComponent } from './dashboard.component';
 import { UsuarioComponent } from 'src/app/components/usuario/usuario.component';
 import { RolesComponent } from 'src/app/components/roles/roles.component';
+import { ItemsComponent } from 'src/app/components/items/items.component';
+
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/app/features/authentication/guards/auth.intercetor';
 
@@ -13,6 +15,7 @@ const routes: Routes = [
     children: [
       { path: 'Usuario', component: UsuarioComponent, canActivate: [AuthorizationGuard] },
       { path: 'Roles', component: RolesComponent, canActivate: [AuthorizationGuard] },
+      { path: 'Items', component: ItemsComponent, canActivate: [AuthorizationGuard] },
     ],
   },
 ];

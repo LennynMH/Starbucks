@@ -350,3 +350,29 @@ BEGIN
 	AND u.Activo =1;
 END
 GO
+
+/***************************************************************************/
+DROP PROCEDURE IF EXISTS USP_SELECT_ITEMS;
+GO
+CREATE PROCEDURE USP_SELECT_ITEMS
+AS
+BEGIN
+	SELECT 
+		i.IdItem	,			
+		i.Descripcion	,		
+		i.Costo		,
+		i.Activo		
+	FROM Item i
+	WHERE i.Activo =1;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_DELETE_ITEMS;
+GO
+CREATE PROCEDURE USP_DELETE_ITEMS
+	@IdItem				INT				
+AS
+BEGIN
+	UPDATE Item SET Activo =0 WHERE IdItem =@IdItem ;
+END
+GO

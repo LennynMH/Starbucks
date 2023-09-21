@@ -22,6 +22,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csp
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{11A3D309-5B7D-4C68-A7C4-E53913DE9005}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiTest", "..\WebApiTest\WebApiTest.csproj", "{1110405F-45FC-4941-AB94-9159E5C9C443}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{11A3D309-5B7D-4C68-A7C4-E53913DE9005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11A3D309-5B7D-4C68-A7C4-E53913DE9005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11A3D309-5B7D-4C68-A7C4-E53913DE9005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1110405F-45FC-4941-AB94-9159E5C9C443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1110405F-45FC-4941-AB94-9159E5C9C443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1110405F-45FC-4941-AB94-9159E5C9C443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1110405F-45FC-4941-AB94-9159E5C9C443}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{893636BD-BF89-45D8-9D91-429CEBAD9B37} = {2A414731-CAE8-40DB-9BBE-C6DE393E0E5A}
 		{BCC9B954-5159-4E52-A10F-76D4107E2FD9} = {2A414731-CAE8-40DB-9BBE-C6DE393E0E5A}
 		{3FDEF621-A175-420E-8686-7C1C9FD61F06} = {2A414731-CAE8-40DB-9BBE-C6DE393E0E5A}
+		{1110405F-45FC-4941-AB94-9159E5C9C443} = {4B0CB317-80EA-4B93-8703-B05934BFF350}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0471982-3FFA-45BF-9C61-35CD0D953C5A}

@@ -21,7 +21,8 @@
             <tbody>
                 <tr *ngFor="let entity of list">
                     <td>{{entity.descripcion}}</td>
-                    <td>{{entity.costo}}</td>
+                    <!-- <td>{{entity.costo}}</td> -->
+                    <td>{{entity.costoTotal}}</td>
                     <td>{{entity.activo == true ? "Activo" : "Inactivo"}}</td>
                     <td>
                         <i class="far fa-trash-alt fa-lg text-danger me-3" (click)="Delete(entity.idItem)"></i>

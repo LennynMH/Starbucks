@@ -6,6 +6,8 @@ import { NgForm } from '@angular/forms';
 import { ComponentBase } from '../../base/base.component';
 import { ItemRequest } from '../../../shared/models/itemRequest.model';
 import { ItemService } from '../../../shared/services/Item.service';
+import { ItemMateriaPrima } from 'src/app/shared/entity/itemMateriaPrima.model';
+import { MateriaPrima } from 'src/app/shared/entity/materiaPrima.model';
 
 @Component({
   selector: 'app-items-popup',
@@ -17,6 +19,10 @@ export class ItemsPopupComponent extends ComponentBase implements OnInit {
   @Output() public eventInsert: EventEmitter<any> = new EventEmitter();
   public tituloModal: string;
   public requestentity: ItemRequest = new ItemRequest();
+  public requestItemMateriaPrima: ItemMateriaPrima = new ItemMateriaPrima();
+  public requestMateriaPrima: MateriaPrima = new MateriaPrima(); 
+  public lisMateriaPrima: MateriaPrima[] = [];
+  public idMateriaPrima: number = 0;
 
   constructor(
     public service: ItemService,
@@ -30,6 +36,9 @@ export class ItemsPopupComponent extends ComponentBase implements OnInit {
   ngOnInit(): void {
   }
 
+  onChangeMateriaPrima(value: any) {
+    console.log(`value: ${JSON.stringify(value)}`);;
+  }
   onSubmit(form: NgForm) {
     this.InsertModal(form)
   }

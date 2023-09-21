@@ -45,7 +45,7 @@ INSERT INTO Usuario (IdRol,DocumentoIdentidad,Nombre,Apellido,Edad,Sexo,Correo,C
 -- SELECT * FROM Usuario
 
 CREATE TABLE MateriaPrima(
-	IdMateriaPrima		INT IDENTITY PRIMARY KEY,
+	IdMateriaPrima		INT IDENTITY  (1,1)  PRIMARY KEY,
 	Descripcion			VARCHAR(100) NOT NULL,
 	Cantidad			INT,
 	UnidadMedida		VARCHAR(5),
@@ -60,28 +60,32 @@ INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('FRESAS',3,'
 -- SELECT * FROM MateriaPrima
 
 CREATE TABLE Item(
-	IdItem				INT IDENTITY PRIMARY KEY,
+	IdItem				INT IDENTITY  (1,1)  PRIMARY KEY,
 	Descripcion			VARCHAR(100) NOT NULL,
-	Costo				DECIMAL(10,2) NOT NULL,
+	CostoTotal				DECIMAL(10,2) NOT NULL,
+	--Costo				DECIMAL(10,2) NOT NULL,
 	Activo				BIT DEFAULT 1 NOT NULL
 )
 -- INSERT INTO Item(Descripcion,Costo) values ('test',3);
 -- INSERT INTO Item(Descripcion,Costo) values ('test2',2);
 
 CREATE TABLE ItemMateriaPrima(
-	IdItemMateriPrima	INT IDENTITY PRIMARY KEY,
-	IdMateriaPrima		INT FOREIGN KEY REFERENCES MateriaPrima(IdMateriaPrima) NOT NULL,
-	IdItem				INT FOREIGN KEY REFERENCES Item(IdItem) NOT NULL,
+	IdItemMateriPrima	INT IDENTITY  (1,1)  PRIMARY KEY,
+	IdItem				INT ,--FOREIGN KEY REFERENCES Item(IdItem) NOT NULL,
+	IdMateriaPrima		INT ,--FOREIGN KEY REFERENCES MateriaPrima(IdMateriaPrima) NOT NULL,
+	Precio				DECIMAL(10,2) NOT NULL,
+	CONSTRAINT [fk_ItemMateriaPrima_Item] FOREIGN KEY(IdItem)REFERENCES Item (IdItem) ,
+	CONSTRAINT [fk_ItemMateriaPrima_IdMateriaPrima] FOREIGN KEY(IdMateriaPrima)REFERENCES MateriaPrima (IdMateriaPrima) 
 )
 
 CREATE TABLE Estado(
-	IdEstado			INT IDENTITY PRIMARY KEY,
+	IdEstado			INT IDENTITY  (1,1) PRIMARY KEY,
 	Descripcion			VARCHAR(100) NOT NULL,
 	Activo				BIT DEFAULT 1 NOT NULL
 )
 --El usuario solo puede realizar ordenes de los ítems disponibles en función de las materias primas disponibles. 
 CREATE TABLE Orden(
-	IdOrden				INT IDENTITY PRIMARY KEY,
+	IdOrden				INT IDENTITY  (1,1) PRIMARY KEY,
 	IdUsuario			INT FOREIGN KEY REFERENCES Usuario(IdUsuario) NOT NULL,
 	IdEmpleado			INT FOREIGN KEY REFERENCES Usuario(IdUsuario) NOT NULL,
 	FechaCreacion		DATETIME NOT NULL,
@@ -90,7 +94,7 @@ CREATE TABLE Orden(
 )
 
 CREATE TABLE OrdenItem(
-	IdOrdenItem			INT IDENTITY PRIMARY KEY,
+	IdOrdenItem			INT IDENTITY  (1,1) PRIMARY KEY,
 	IdOrden				INT FOREIGN KEY REFERENCES Orden(IdOrden),
 	--IdItem				INT FOREIGN KEY REFERENCES Item(IdItem),
 	IdItemMateriPrima	INT FOREIGN KEY REFERENCES ItemMateriaPrima(IdItemMateriPrima),
@@ -102,14 +106,14 @@ CREATE TABLE OrdenItem(
 
 -- El empleado toma la orden de los usuarios y la ejecutan. Una vez finalizada su ejecución, esta está lista para ser facturada
 CREATE TABLE Facturacion(
-	IdFacturacion		INT IDENTITY PRIMARY KEY,
+	IdFacturacion		INT IDENTITY  (1,1) PRIMARY KEY,
 	IdOrden				INT FOREIGN KEY REFERENCES Orden(IdOrden) NOT NULL,
 	--IdUsuario			INT FOREIGN KEY REFERENCES Usuario(IdUsuario) NOT NULL,
 	FechaEmision		DATETIME
 )
 
 CREATE TABLE FacturacionDetalle(
-	IdFacturacionDetalle	INT IDENTITY PRIMARY KEY,
+	IdFacturacionDetalle	INT IDENTITY  (1,1) PRIMARY KEY,
 	IdFacturacion			INT FOREIGN KEY REFERENCES Facturacion(IdFacturacion) NOT NULL,
 	IdOrdenItem				INT,
 	Igv						DECIMAL(10,2) NOT NULL,

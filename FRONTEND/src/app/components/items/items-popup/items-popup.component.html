@@ -1,31 +1,36 @@
 <app-modal (close)="closeModal($event)" [title]="tituloModal">
     <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
         <input type="hidden" name="Id" [value]="requestentity.idItem" />
-        <!-- 
-            <div class="form-group">
-            <label>Nombre</label>
-            <input type="text" class="form-control" placeholder="nombre" name="nombre" #nombre="ngModel"
-                [(ngModel)]="requestentity.nombre" required [class.invalid]="nombre.invalid && nombre.touched">
+        <div class="form-group">
+            <label>Descripcion</label>
+            <input type="text" class="form-control" placeholder="descripcion" name="descripcion" #descripcion="ngModel"
+                [(ngModel)]="requestentity.descripcion" required
+                [class.invalid]="descripcion.invalid && descripcion.touched">
         </div>
         <div class="form-group">
-            <label>Apellido</label>
-            <input type="text" class="form-control" placeholder="apellido" name="apellido" #apellido="ngModel"
-                [(ngModel)]="requestentity.apellido" required [class.invalid]="apellido.invalid && apellido.touched">
+            <label>Costo Total</label>
+            <input type="text" class="form-control" placeholder="costoTotal" name="costoTotal" #costoTotal="ngModel"
+                [(ngModel)]="requestentity.costoTotal" [disabled]="true" required
+                [class.invalid]="costoTotal.invalid && costoTotal.touched">
         </div>
         <div class="form-group">
+            <label>Materia Prima</label>
+            <select class="form-control" name="MateriaPrima" #MateriaPrima="ngModel"
+                [(ngModel)]="requestMateriaPrima.idMateriaPrima"
+                (ngModelChange)="onChangeMateriaPrima($event)" required
+                [class.invalid]="MateriaPrima.invalid && MateriaPrima.touched">
+                <option value="">Seleccione</option>
+                <option *ngFor="let rol of lisMateriaPrima" [value]="rol.idMateriaPrima">{{rol.descripcion}}</option>
+            </select>
+        </div>
+
+        <!-- <div class="form-group">
             <label>Documento de Identidad</label>
             <input type="text" class="form-control" placeholder="documentoIdentidad" name="documentoIdentidad"
                 #documentoIdentidad="ngModel" [(ngModel)]="requestentity.documentoIdentidad" required
                 [class.invalid]="documentoIdentidad.invalid && documentoIdentidad.touched">
         </div>
-        <div class="form-group">
-            <label>Rol</label>
-            <select class="form-control" name="Rol" #Rol="ngModel" [(ngModel)]="requestentity.idRol"
-                (ngModelChange)="onChangeRol($event)" required [class.invalid]="Rol.invalid && Rol.touched">
-                <option value="">Seleccione</option>
-                <option *ngFor="let rol of listRol" [value]="rol.idRol">{{rol.descripcion}}</option>
-            </select>
-        </div>
+        
         <div class="form-group">
             <div class="col-md-6">
                 <label>Edad</label>

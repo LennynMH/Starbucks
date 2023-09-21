@@ -360,7 +360,8 @@ BEGIN
 	SELECT 
 		i.IdItem	,			
 		i.Descripcion	,		
-		i.Costo		,
+		i.CostoTotal		,
+		--i.Costo		,
 		i.Activo		
 	FROM Item i
 	WHERE i.Activo =1;
@@ -386,7 +387,8 @@ BEGIN
 	SELECT 
 		i.IdItem	,			
 		i.Descripcion	,		
-		i.Costo		,
+		--i.Costo		,
+		i.CostoTotal		,
 		i.Activo		
 	FROM Item i
 	WHERE i.IdItem =@IdItem 

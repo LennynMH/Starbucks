@@ -2,7 +2,14 @@
 {
     public static class ConstStoreProcedure
     {
-
+        public static class MateriaPrima
+        {
+            public const string USP_CREATE_MATERIA_PRIMA = "USP_CREATE_MATERIA_PRIMA";
+            public const string USP_UPDATE_MATERIA_PRIMA = "USP_UPDATE_MATERIA_PRIMA";
+            public const string USP_DELETE_MATERIA_PRIMA = "USP_DELETE_MATERIA_PRIMA";
+            public const string USP_SELECT_MATERIA_PRIMA = "USP_SELECT_MATERIA_PRIMA";
+            public const string USP_SELECT_MATERIA_PRIMA_BY_ID = "USP_SELECT_MATERIA_PRIMA_BY_ID";
+        }
         public static class Usuario
         {
             public const string USP_SELECT_USUARIO_BY_CODIGO = "USP_SELECT_USUARIO_BY_CODIGO";

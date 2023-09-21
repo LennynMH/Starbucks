@@ -409,3 +409,31 @@ BEGIN
 	WHERE d.IdItem =@IdItem; 
 END
 GO
+
+/***********************************************MateriaPrima ***********************************************/
+
+DROP PROCEDURE IF EXISTS USP_SELECT_MATERIA_PRIMA;
+GO
+CREATE PROCEDURE USP_SELECT_MATERIA_PRIMA
+AS
+BEGIN
+	SELECT 
+		m.IdMateriaPrima	,
+		m.Descripcion	,	
+		m.Cantidad		,
+		m.UnidadMedida,	
+		m.Activo		
+	from MateriaPrima m
+	WHERE m.Activo =1;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_DELETE_MATERIA_PRIMA;
+GO
+CREATE PROCEDURE USP_DELETE_MATERIA_PRIMA
+	@IdMateriaPrima				INT				
+AS
+BEGIN
+	UPDATE MateriaPrima SET Activo =0 WHERE IdMateriaPrima =@IdMateriaPrima ;
+END
+GO

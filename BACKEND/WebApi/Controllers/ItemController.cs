@@ -1,9 +1,7 @@
 ﻿using ApplicationCore.Interface.IServices;
-using ApplicationCore.Services;
 using Domain.Core;
-using Domain.DTO.Request.Rol;
+using Domain.DTO.Request.Item;
 using Domain.DTO.Response.Item;
-using Domain.DTO.Response.Rol;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -64,7 +62,7 @@ namespace WebApi.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
         [HttpDelete("Eliminar/{IdItem:int}")]
-        [ProducesResponseType(typeof(RolEliminarRequest), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ItemEliminarRequest), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Eliminar(int IdItem)
         {

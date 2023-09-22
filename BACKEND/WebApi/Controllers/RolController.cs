@@ -85,7 +85,6 @@ namespace WebApi.Controllers
         /// </remarks>
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
-        //[HttpDelete("Eliminar")]
         [HttpDelete("Eliminar/{IdRol:int}")]
         [ProducesResponseType(typeof(RolEliminarRequest), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]

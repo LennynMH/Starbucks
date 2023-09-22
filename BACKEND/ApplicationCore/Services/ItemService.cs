@@ -3,6 +3,7 @@ using ApplicationCore.Interface.IServices;
 using AutoMapper;
 using Domain.Core;
 using Domain.DTO.Request.Item;
+using Domain.DTO.Request.ItemMateriaPrima;
 using Domain.DTO.Response.Item;
 using Domain.DTO.Response.Rol;
 using Domain.Entities;
@@ -24,9 +25,19 @@ namespace ApplicationCore.Services
         public async Task<HttpResponseResult<int>> Registrar(ItemRegistrarRequest param)
         {
             var parammapper = _mapper.Map<ItemEntity>(param);
-            //var parammapperDetalle = _mapper.Map<List<ItemMateriaPrimaEntity>>(param.ListItemMateriaPrimaEntity);
-            var parammapperDetalle = param.ListItemMateriaPrimaEntity;
+
+            var parammapperDetalle = _mapper.Map<List<ItemMateriaPrimaRegisrtarRequest>>(param.ListItemMateriaPrimaEntity);
             var responsemapper = await _itemRepository.Registrar(parammapper, parammapperDetalle);
+            var response = new HttpResponseResult<int>() { Data = responsemapper };
+            return response;
+        }
+
+        public async Task<HttpResponseResult<int>> Actualizar(ItemRegistrarRequest param)
+        {
+            var parammapper = _mapper.Map<ItemEntity>(param);
+
+            var parammapperDetalle = _mapper.Map<List<ItemMateriaPrimaRegisrtarRequest>>(param.ListItemMateriaPrimaEntity);
+            var responsemapper = await _itemRepository.Actualizar(parammapper, parammapperDetalle);
             var response = new HttpResponseResult<int>() { Data = responsemapper };
             return response;
         }

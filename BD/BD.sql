@@ -74,6 +74,7 @@ CREATE TABLE ItemMateriaPrima(
 	IdItem				INT ,--FOREIGN KEY REFERENCES Item(IdItem) NOT NULL,
 	IdMateriaPrima		INT ,--FOREIGN KEY REFERENCES MateriaPrima(IdMateriaPrima) NOT NULL,
 	Precio				DECIMAL(10,2) NOT NULL,
+	Cantidad			INT NOT NULL,
 	CONSTRAINT [fk_ItemMateriaPrima_Item] FOREIGN KEY(IdItem)REFERENCES Item (IdItem) ,
 	CONSTRAINT [fk_ItemMateriaPrima_IdMateriaPrima] FOREIGN KEY(IdMateriaPrima)REFERENCES MateriaPrima (IdMateriaPrima) 
 )

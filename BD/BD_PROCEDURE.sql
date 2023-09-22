@@ -351,7 +351,71 @@ BEGIN
 END
 GO
 
-/***************************************************************************/
+/*********************************************** Item ***********************************************/
+DROP PROCEDURE IF EXISTS USP_CREATE_ITEMS;
+GO
+DROP PROCEDURE IF EXISTS USP_UPDATE_ITEMS;
+GO
+DROP TYPE IF EXISTS listItemMateriaPrima;
+GO
+CREATE TYPE listItemMateriaPrima AS TABLE
+(
+	IdItemMateriPrima	INT NULL,
+	IdMateriaPrima		INT NULL,
+	Precio				DECIMAL(10,2)  NULL,
+	Cantidad			INT NULL
+)
+GO
+CREATE PROCEDURE USP_CREATE_ITEMS
+	@Descripcion				VARCHAR(100),
+	@CostoTotal					DECIMAL(10,2),
+	@ListadoItemMateriaPrima	listItemMateriaPrima READONLY
+AS
+BEGIN
+	DECLARE @IdItem INT =0;
+	INSERT INTO Item(Descripcion,CostoTotal) values (@Descripcion,@CostoTotal);
+	SET @IdItem = CAST(SCOPE_IDENTITY() AS INT);
+	-- select * from ItemMateriaPrima
+	INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad)
+	SELECT 
+		@IdItem,
+		IdMateriaPrima,
+		Precio,
+		Cantidad
+	FROM @ListadoItemMateriaPrima;
+
+	SELECT @IdItem;
+END
+GO
+
+CREATE PROCEDURE USP_UPDATE_ITEMS
+	@IdItem						INT,
+	@Descripcion				VARCHAR(100),
+	@CostoTotal					DECIMAL(10,2),
+	@ListadoItemMateriaPrima	listItemMateriaPrima READONLY
+AS
+BEGIN
+	UPDATE Item 
+	SET	
+		Descripcion = @Descripcion,
+		CostoTotal	= @CostoTotal
+	WHERE IdItem = @IdItem;
+
+	DELETE FROM ItemMateriaPrima WHERE IdItem = @IdItem; 
+
+	INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad)
+	SELECT 
+		@IdItem,
+		IdMateriaPrima,
+		Precio,
+		Cantidad
+	FROM @ListadoItemMateriaPrima;
+
+	SELECT @IdItem;
+END
+GO
+
+
 DROP PROCEDURE IF EXISTS USP_SELECT_ITEMS;
 GO
 CREATE PROCEDURE USP_SELECT_ITEMS
@@ -398,6 +462,8 @@ BEGIN
 		d.IdItemMateriPrima	,
 		d.IdMateriaPrima	,		
 		d.IdItem			,	
+		d.Precio			,
+		d.Cantidad			,
 
 		m.IdMateriaPrima	,	
 		m.Descripcion		,	
@@ -410,7 +476,7 @@ BEGIN
 END
 GO
 
-/***********************************************MateriaPrima ***********************************************/
+/*********************************************** MateriaPrima ***********************************************/
 
 DROP PROCEDURE IF EXISTS USP_SELECT_MATERIA_PRIMA;
 GO

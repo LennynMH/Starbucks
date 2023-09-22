@@ -44,6 +44,30 @@ namespace WebApi.Controllers
             return Ok(await _itemService.Registrar(query));
         }
 
+
+        /// <summary>
+        /// Crear Método que actualizar Item
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>actualizar Item</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /actualizar
+        ///     {
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
+        [HttpPut("Actualizar")]
+        [ProducesResponseType(typeof(ItemRegistrarRequest), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Actualizar([FromBody] ItemRegistrarRequest query)
+        {
+            return Ok(await _itemService.Actualizar(query));
+        }
+
         /// <summary>
         /// Crear Método que obtiene items
         /// </summary>

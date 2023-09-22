@@ -1,14 +1,13 @@
 ﻿using ApplicationCore.Interface.IRepositories;
 using Dapper;
 using Domain.Constants;
+using Domain.DTO.Request.ItemMateriaPrima;
 using Domain.DTO.Response.Item;
 using Domain.Entities;
 using Infrastructure.Conecction.Dapper;
 using Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using System.Data;
-using System.Linq;
-using static Domain.Constants.ConstStoreProcedure;
 
 namespace Infrastructure.Repositories
 {
@@ -19,10 +18,10 @@ namespace Infrastructure.Repositories
         {
         }
 
-        public async Task<int> Registrar(ItemEntity param, List<ItemMateriaPrimaEntity> listItemMateriaPrimaEntities)
+        public async Task<int> Registrar(ItemEntity param, List<ItemMateriaPrimaRegisrtarRequest> listItemMateriaPrimaEntities)
         {
             int result;
-            var ListadoItemMateriaPrima = listItemMateriaPrimaEntities.AsTableValuedParameter("listItemMateriaPrima", true, new List<string> { "IdItemMateriPrima", "IdMateriaPrima", "Precio" });
+            var ListadoItemMateriaPrima = listItemMateriaPrimaEntities.AsTableValuedParameter("listItemMateriaPrima", true, new List<string> { "IdItemMateriPrima", "IdMateriaPrima", "Precio", "Cantidad" });
 
             using (var dbConnection = ObtenerConexion())
             {
@@ -34,6 +33,41 @@ namespace Infrastructure.Repositories
                         result = await dbConnection.QuerySingleAsync<int>(ConstStoreProcedure.Item.USP_CREATE_ITEMS,
                             new
                             {
+                                param.Descripcion,
+                                param.CostoTotal,
+                                ListadoItemMateriaPrima
+                            },
+                            transaction: dbtransaction,
+                            commandType: CommandType.StoredProcedure);
+
+                        dbtransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbtransaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            return result;
+        }
+
+        public async Task<int> Actualizar(ItemEntity param, List<ItemMateriaPrimaRegisrtarRequest> listItemMateriaPrimaEntities)
+        {
+            int result;
+            var ListadoItemMateriaPrima = listItemMateriaPrimaEntities.AsTableValuedParameter("listItemMateriaPrima", true, new List<string> { "IdItemMateriPrima", "IdMateriaPrima", "Precio", "Cantidad" });
+
+            using (var dbConnection = ObtenerConexion())
+            {
+                dbConnection.Open();
+                using (var dbtransaction = dbConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        result = await dbConnection.QuerySingleAsync<int>(ConstStoreProcedure.Item.USP_UPDATE_ITEMS,
+                            new
+                            {
+                                param.IdItem,
                                 param.Descripcion,
                                 param.CostoTotal,
                                 ListadoItemMateriaPrima

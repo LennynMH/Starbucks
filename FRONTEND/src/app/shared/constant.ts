@@ -60,6 +60,11 @@ export const MenuWebApi = {
         },
         {
             id: 6,
+            text: 'Actualizar Orden',
+            url: '/Home/ActualizaOrden',
+        },
+        {
+            id: 7,
             text: 'Facturas',
             url: '/Home/Facturas',
         },
@@ -100,7 +105,7 @@ export const MenuWebApi = {
             url: '/Home/Ordenes',
         },
         {
-            id: 6,
+            id: 7,
             text: 'Facturas',
             url: '/Home/Facturas',
         },

@@ -25,6 +25,14 @@ import { ItemsComponent } from 'src/app/components/items/items.component';
 import { ItemsPopupComponent } from 'src/app/components/items/items-popup/items-popup.component';
 import { AuthInterceptor } from 'src/app/features/authentication/guards/auth.intercetor';
 
+import { MateriaPrimaComponent } from 'src/app/components/materia-prima/materia-prima.component';
+import { MateriaPrimaPopupComponent } from 'src/app/components/materia-prima/materia-prima-popup/materia-prima-popup.component';
+import { OrdenesComponent } from 'src/app/components/ordenes/ordenes.component';
+import { OrdenesPopupComponent } from 'src/app/components/ordenes/ordenes-popup/ordenes-popup.component';
+import { OrdenActualizarComponent } from 'src/app/components/orden-actualizar/orden-actualizar.component';
+import { OrdenActualizarPopupComponent } from 'src/app/components/orden-actualizar/orden-actualizar-popup/orden-actualizar-popup.component';
+import { FacturasComponent } from 'src/app/components/facturas/facturas.component';
+import { FacturasPopupComponent } from 'src/app/components/facturas/facturas-popup/facturas-popup.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -35,6 +43,15 @@ import { AuthInterceptor } from 'src/app/features/authentication/guards/auth.int
     ItemsComponent,
     ItemsPopupComponent,
     
+    MateriaPrimaComponent,
+    MateriaPrimaPopupComponent,
+    OrdenesComponent,
+    OrdenesPopupComponent,
+    OrdenActualizarComponent,
+    OrdenActualizarPopupComponent,
+    FacturasComponent,
+    FacturasPopupComponent,
+
     ModalComponent,
     NavbarComponent
   ],

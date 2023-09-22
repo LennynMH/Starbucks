@@ -1,1 +1,36 @@
-<p>ordenes works!</p>
+<div class="jumbotron py-3">
+    <h1 class="display-4 text-center">Mantenimiento Orden</h1>
+</div>
+<div class="row">
+    <div class="mb-4">
+        <button class="btn btn-success rounded-pill px-5 me-3" type="button" (click)="OpenCreate()">Nuevo</button>
+        <button class="btn btn-primary rounded-pill px-5" type="button" (click)="Listar()">Listar</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <!-- <th>Descripcion</th>
+                    <th>Costo</th>
+                    <th>Estado</th> 
+                    <th></th>-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let entity of list">
+                    <!-- <td>{{entity.descripcion}}</td>
+                    <td>{{entity.costoTotal}}</td>
+                    <td>{{entity.activo == true ? "Activo" : "Inactivo"}}</td>
+                    <td>
+                        <i class="far fa-trash-alt fa-lg text-danger me-3" (click)="Delete(entity.idItem)"></i>
+                        <i class="far fa-pen-to-square fa-lg text-primary" (click)="Update(entity.idItem)"></i>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<app-ordenes-popup (eventInsert)="Insert($event)" (close)="isOpenModal = $event" *ngIf="isOpenModal">
+</app-ordenes-popup>

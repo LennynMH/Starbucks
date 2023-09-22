@@ -6,7 +6,7 @@ import { NgForm } from '@angular/forms';
 import { ComponentBase } from '../../base/base.component';
 import { ItemRequest } from '../../../shared/models/itemRequest.model';
 import { ItemService } from '../../../shared/services/Item.service';
-import { MateriaPrimaService } from '../../../shared/services/MateriaPrima.service';
+import { MateriaPrimaService } from '../../../shared/services/materiaPrima.service';
 import { ItemMateriaPrima } from 'src/app/shared/entity/itemMateriaPrima.model';
 import { MateriaPrima } from 'src/app/shared/entity/materiaPrima.model';
 

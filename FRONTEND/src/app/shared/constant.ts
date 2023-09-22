@@ -20,6 +20,12 @@ export const IncomeWebApi = {
 
     MateriaPrimaListar: "/api/MateriaPrima/Listar",
     MateriaPrimaEliminar: "/api/MateriaPrima/Eliminar",
+
+    OrdenListar: "/api/Orden/Listar",
+    OrdenEliminar: "/api/Orden/Eliminar",
+    OrdenActualizar: "/api/Orden/Actualizar",
+    OrdenRegistrar: "/api/Orden/Registrar",
+    OrdenListarById: "/api/Orden/ListarById",
 }
 
 export const RolesWebApi = {

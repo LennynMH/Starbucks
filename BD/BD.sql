@@ -85,24 +85,27 @@ CREATE TABLE Estado(
 	Activo				BIT DEFAULT 1 NOT NULL
 )
 --El usuario solo puede realizar ordenes de los ítems disponibles en función de las materias primas disponibles. 
+-- DROP TABLE   Orden
 CREATE TABLE Orden(
 	IdOrden				INT IDENTITY  (1,1) PRIMARY KEY,
 	IdUsuario			INT FOREIGN KEY REFERENCES Usuario(IdUsuario) NOT NULL,
 	IdEmpleado			INT FOREIGN KEY REFERENCES Usuario(IdUsuario) NOT NULL,
+	NumeroOrden			VARCHAR(MAX),
 	FechaCreacion		DATETIME NOT NULL,
 	IdEstado			INT FOREIGN KEY REFERENCES Estado(IdEstado) NOT NULL,
 	TiempoOrden			INT
 )
-
+-- DROP TABLE   OrdenItem
 CREATE TABLE OrdenItem(
 	IdOrdenItem			INT IDENTITY  (1,1) PRIMARY KEY,
-	IdOrden				INT FOREIGN KEY REFERENCES Orden(IdOrden),
-	--IdItem				INT FOREIGN KEY REFERENCES Item(IdItem),
-	IdItemMateriPrima	INT FOREIGN KEY REFERENCES ItemMateriaPrima(IdItemMateriPrima),
+	IdOrden				INT , -- FOREIGN KEY REFERENCES Orden(IdOrden),
+	IdItem				INT , -- FOREIGN KEY REFERENCES Item(IdItem),
+	--IdItemMateriPrima	INT FOREIGN KEY REFERENCES ItemMateriaPrima(IdItemMateriPrima),
 	TiempoItem			INT,
 	Precio				DECIMAL(10,2) NOT NULL,
-	Cantidad			INT
-
+	Cantidad			INT,
+	CONSTRAINT [fk__OrdenItem_IdOrden] FOREIGN KEY(IdOrden)REFERENCES Orden (IdOrden) ,
+	CONSTRAINT [fk_OrdenItem_IdItem] FOREIGN KEY(IdItem)REFERENCES Item (IdItem) ,
 )
 
 -- El empleado toma la orden de los usuarios y la ejecutan. Una vez finalizada su ejecución, esta está lista para ser facturada

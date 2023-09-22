@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { ComponentBase } from '../../base/base.component';
 import { ItemRequest } from '../../../shared/models/itemRequest.model';
 import { ItemService } from '../../../shared/services/Item.service';
+import { MateriaPrimaService } from '../../../shared/services/MateriaPrima.service';
 import { ItemMateriaPrima } from 'src/app/shared/entity/itemMateriaPrima.model';
 import { MateriaPrima } from 'src/app/shared/entity/materiaPrima.model';
 
@@ -18,32 +19,95 @@ export class ItemsPopupComponent extends ComponentBase implements OnInit {
   @Output() public close: EventEmitter<boolean> = new EventEmitter();
   @Output() public eventInsert: EventEmitter<any> = new EventEmitter();
   public tituloModal: string;
+  public sizeModal: string;
+  public idMateriaPrima: number = 0;
   public requestentity: ItemRequest = new ItemRequest();
   public requestItemMateriaPrima: ItemMateriaPrima = new ItemMateriaPrima();
-  public requestMateriaPrima: MateriaPrima = new MateriaPrima(); 
+  public listItemMateriaPrima: ItemMateriaPrima[] = [];
+  public materiaPrima: MateriaPrima = new MateriaPrima();
   public lisMateriaPrima: MateriaPrima[] = [];
-  public idMateriaPrima: number = 0;
+  public precioMateriaPrima: number = 0;
 
   constructor(
     public service: ItemService,
+    public serviceMateriaPrima: MateriaPrimaService,
     public override toastr: ToastrService,
     public override router: Router,
     private dateAdapter: DateAdapter<Date>) {
     super(router, toastr);
     this.tituloModal = "Mantenimiento Item";
+    this.sizeModal = "modal-lg";
   }
 
   ngOnInit(): void {
+    this.onCargarMateriaPrima();
+  }
+
+  onCargarMateriaPrima() {
+    this.serviceMateriaPrima.Listar().subscribe(
+      (response) => {
+        this.lisMateriaPrima = response.data;
+      },
+      (error) => {
+        this.ManageErrors(error);
+      });
   }
 
   onChangeMateriaPrima(value: any) {
-    console.log(`value: ${JSON.stringify(value)}`);;
+    this.idMateriaPrima = value;
+    var materia = this.lisMateriaPrima.find(x => x.idMateriaPrima == value);
+    this.materiaPrima = materia;
+    //console.log(`materia: ${JSON.stringify(materia)}`);;
   }
+
+  Delete(idItemMateriPrima: number, idMateriaPrima: number) {
+    //debugger;
+    this.listItemMateriaPrima = this.listItemMateriaPrima.filter((value, key) => {
+      return value.materiaPrima.idMateriaPrima != idMateriaPrima;
+    });
+
+    if (this.listItemMateriaPrima.length > 0) {
+      this.requestentity.costoTotal = this.listItemMateriaPrima.map(a => a.precio).reduce(function (a, b) {
+        return a + b;
+      });
+    }
+    else { this.requestentity.costoTotal = 0; }
+  }
+
+  onclickAgregar() {
+    //debugger;
+    var materiaPrima: ItemMateriaPrima = new ItemMateriaPrima();
+    if (this.idMateriaPrima == 0) {
+      this.toastr.error("selecione materia prima");
+    } else if (this.precioMateriaPrima == 0) {
+      this.toastr.error("ingrese precio");
+    }
+    else {
+      var validaitem = this.listItemMateriaPrima.find(x => x.materiaPrima.idMateriaPrima == this.idMateriaPrima);
+      if (validaitem) {
+        this.toastr.error("la materia prima ya esta agregada");
+      } else {
+        this.requestItemMateriaPrima.materiaPrima = null;
+        materiaPrima.materiaPrima = this.materiaPrima;
+        materiaPrima.precio = this.precioMateriaPrima;
+        this.listItemMateriaPrima.push(materiaPrima);
+        this.requestentity.costoTotal = this.listItemMateriaPrima.map(a => a.precio).reduce(function (a, b) {
+          return a + b;
+        });
+      }
+    }
+  }
+
   onSubmit(form: NgForm) {
     this.InsertModal(form)
   }
 
+  closeModal($event: boolean) {
+    this.close.emit($event);
+  }
+
   InsertModal(form: NgForm) {
+    this.requestentity.listItemMateriaPrimaEntity = this.listItemMateriaPrima;
     this.eventInsert.emit(this.requestentity);
     this.ResetForm(form);
   }
@@ -51,9 +115,5 @@ export class ItemsPopupComponent extends ComponentBase implements OnInit {
   ResetForm(form: NgForm) {
     form.form.reset();
     this.requestentity = new ItemRequest();
-  }
-
-  closeModal($event: boolean) {
-    this.close.emit($event);
   }
 }

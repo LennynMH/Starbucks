@@ -4,7 +4,6 @@
     {
         public int IdItem { get; set; }
         public string? Descripcion { get; set; }
-        //public decimal Costo { get; set; } 
         public decimal CostoTotal { get; set; }
         public bool Activo { get; set; }
 

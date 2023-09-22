@@ -1,4 +1,4 @@
-<app-modal (close)="closeModal($event)" [title]="tituloModal">
+<app-modal (close)="closeModal($event)" [size]="sizeModal" [title]="tituloModal">
     <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
         <input type="hidden" name="Id" [value]="requestentity.idItem" />
         <div class="form-group">
@@ -10,53 +10,64 @@
         <div class="form-group">
             <label>Costo Total</label>
             <input type="text" class="form-control" placeholder="costoTotal" name="costoTotal" #costoTotal="ngModel"
-                [(ngModel)]="requestentity.costoTotal" [disabled]="true" required
-                [class.invalid]="costoTotal.invalid && costoTotal.touched">
+                [(ngModel)]="requestentity.costoTotal" [disabled]="true" required>
         </div>
-        <div class="form-group">
-            <label>Materia Prima</label>
-            <select class="form-control" name="MateriaPrima" #MateriaPrima="ngModel"
-                [(ngModel)]="requestMateriaPrima.idMateriaPrima"
-                (ngModelChange)="onChangeMateriaPrima($event)" required
-                [class.invalid]="MateriaPrima.invalid && MateriaPrima.touched">
-                <option value="">Seleccione</option>
-                <option *ngFor="let rol of lisMateriaPrima" [value]="rol.idMateriaPrima">{{rol.descripcion}}</option>
-            </select>
-        </div>
-
-        <!-- <div class="form-group">
-            <label>Documento de Identidad</label>
-            <input type="text" class="form-control" placeholder="documentoIdentidad" name="documentoIdentidad"
-                #documentoIdentidad="ngModel" [(ngModel)]="requestentity.documentoIdentidad" required
-                [class.invalid]="documentoIdentidad.invalid && documentoIdentidad.touched">
-        </div>
-        
-        <div class="form-group">
-            <div class="col-md-6">
-                <label>Edad</label>
-                <input type="number" class="form-control" placeholder="Edad" name="Edad" #Edad="ngModel"
-                    [(ngModel)]="requestentity.edad" required [class.invalid]="Edad.invalid && Edad.touched">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>Materia Prima</label>
+                    <select class="form-control" name="MateriaPrima" #MateriaPrima="ngModel"
+                        [(ngModel)]="idMateriaPrima" (ngModelChange)="onChangeMateriaPrima($event)" required>
+                        <option value="">Seleccione</option>
+                        <option *ngFor="let ent of lisMateriaPrima" [value]="ent.idMateriaPrima">{{ent.descripcion}}
+                        </option>
+                    </select>
+                </div>
             </div>
-            <div class="col-md-6">
-                <label>Sexo</label>
-                <select class="form-control" name="Sexo" #Sexo="ngModel" [(ngModel)]="requestentity.sexo"
-                    (ngModelChange)="onChangeSexo($event)" required [class.invalid]="Sexo.invalid && Sexo.touched">
-                    <option value="M">Masculino</option>
-                    <option value="F">Femenino</option>
-                </select>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Precio</label>
+                    <input type="number" class="form-control" placeholder="Precio" name="Precio" #Precio="ngModel"
+                        [(ngModel)]="precioMateriaPrima" [min]="1" required
+                        [class.invalid]="Precio.invalid && Precio.touched">
+                </div>
+            </div>
+            <div class="col-md-2 mt-3">
+                <div class="form-group">
+                    <button class="btn btn-info btn-block" (click)="onclickAgregar();" type="button">Agregar</button>
+                </div>
             </div>
         </div>
         <div class="form-group">
-            <label>Correo</label>
-            <input type="text" class="form-control" placeholder="correo" name="correo" #correo="ngModel"
-                [(ngModel)]="requestentity.correo" required [class.invalid]="correo.invalid && correo.touched">
+            <br>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>id</th>
+                        <th>idMateriaPrima</th>
+                        <th>Descripcion</th>
+                        <th>UnidadMedida</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let entity of listItemMateriaPrima">
+                        <td>{{entity.idItemMateriPrima}}</td>
+                        <td>{{entity.materiaPrima.idMateriaPrima}}</td>
+                        <td>{{entity.materiaPrima.descripcion}}</td>
+                        <td>{{entity.materiaPrima.unidadMedida}}</td>
+                        <td>{{entity.materiaPrima.cantidad}}</td>
+                        <td>{{entity.precio}}</td>
+                        <td>
+                            <i class="far fa-trash-alt fa-lg text-danger me-3"
+                                (click)="Delete(entity.idItemMateriPrima,entity.materiaPrima.idMateriaPrima);"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="form-group">
-            <label>Codigo</label>
-            <input type="text" class="form-control" placeholder="codigo" name="codigo" #codigo="ngModel"
-                [(ngModel)]="requestentity.codigo" required [class.invalid]="codigo.invalid && codigo.touched">
-        </div> 
-    -->
         <div class="d-grid gap-2 col-6 mx-auto mt-4">
             <button class="btn btn-info btn-block" type="submit" [disabled]="form.invalid">Guardar</button>
         </div>

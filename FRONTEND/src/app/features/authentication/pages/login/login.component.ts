@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   public ObtainLoginHB() {
-    debugger;
+    //debugger;
     let params = this.credenciales;
     this.service.Autenticar(params).subscribe((response) => {
       if (response.success) {

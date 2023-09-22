@@ -14,6 +14,10 @@ export const IncomeWebApi = {
 
     ItemListar: "/api/Item/Listar",
     ItemEliminar: "/api/Item/Eliminar",
+    ItemRegistrar: "/api/Item/Registrar",
+
+    MateriaPrimaListar: "/api/MateriaPrima/Listar",
+    MateriaPrimaEliminar: "/api/MateriaPrima/Eliminar",
 }
 
 export const RolesWebApi = {

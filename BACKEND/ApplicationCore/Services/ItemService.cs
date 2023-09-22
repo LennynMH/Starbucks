@@ -21,6 +21,16 @@ namespace ApplicationCore.Services
             this._mapper = mapper;
         }
 
+        public async Task<HttpResponseResult<int>> Registrar(ItemRegistrarRequest param)
+        {
+            var parammapper = _mapper.Map<ItemEntity>(param);
+            //var parammapperDetalle = _mapper.Map<List<ItemMateriaPrimaEntity>>(param.ListItemMateriaPrimaEntity);
+            var parammapperDetalle = param.ListItemMateriaPrimaEntity;
+            var responsemapper = await _itemRepository.Registrar(parammapper, parammapperDetalle);
+            var response = new HttpResponseResult<int>() { Data = responsemapper };
+            return response;
+        }
+
         public async Task<HttpResponseResult<List<ItemListarResponse>>> Listar()
         {
             var result = await this._itemRepository.Listar();

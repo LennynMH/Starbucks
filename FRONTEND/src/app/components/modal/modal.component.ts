@@ -27,6 +27,7 @@ import { trigger, style, transition, animate, state } from '@angular/animations'
 })
 export class ModalComponent implements OnInit {
     @Input() public title: string;
+     @Input() public size: string;
     @Output() public close: EventEmitter<boolean> = new EventEmitter();
 
     ngOnInit() {

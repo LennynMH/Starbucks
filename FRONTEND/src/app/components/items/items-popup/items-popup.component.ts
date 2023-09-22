@@ -27,6 +27,7 @@ export class ItemsPopupComponent extends ComponentBase implements OnInit {
   public materiaPrima: MateriaPrima = new MateriaPrima();
   public lisMateriaPrima: MateriaPrima[] = [];
   public precioMateriaPrima: number = 0;
+  public cantidadMateriaPrima: number = 0;
 
   constructor(
     public service: ItemService,
@@ -41,6 +42,32 @@ export class ItemsPopupComponent extends ComponentBase implements OnInit {
 
   ngOnInit(): void {
     this.onCargarMateriaPrima();
+    this.Initialize();
+  }
+
+  Initialize() {
+    let id = localStorage.getItem("id");
+    if (id) {
+      this.service.Select(id).subscribe(
+        (response) => {
+          debugger;
+          if (response.success) {
+            let datos = response.data;
+            this.requestentity.idItem = datos.item.idItem;
+            this.requestentity.descripcion = datos.item.descripcion;
+            this.requestentity.costoTotal = datos.item.costoTotal;
+            this.listItemMateriaPrima = datos.itemMateriaPrima;
+            console.log(`datos: ${JSON.stringify(datos)}`);
+          }
+        },
+        (error) => {
+          this.ManageErrors(error);
+        });
+      localStorage.removeItem("id");
+    }
+    else {
+      this.requestentity = new ItemRequest();
+    }
   }
 
   onCargarMateriaPrima() {
@@ -54,9 +81,13 @@ export class ItemsPopupComponent extends ComponentBase implements OnInit {
   }
 
   onChangeMateriaPrima(value: any) {
+    //debugger;
     this.idMateriaPrima = value;
     var materia = this.lisMateriaPrima.find(x => x.idMateriaPrima == value);
     this.materiaPrima = materia;
+    this.precioMateriaPrima = 0;
+    //this.cantidadMateriaPrima =materia.cantidad;
+    this.cantidadMateriaPrima = 1;
     //console.log(`materia: ${JSON.stringify(materia)}`);;
   }
 
@@ -90,6 +121,7 @@ export class ItemsPopupComponent extends ComponentBase implements OnInit {
         this.requestItemMateriaPrima.materiaPrima = null;
         materiaPrima.materiaPrima = this.materiaPrima;
         materiaPrima.precio = this.precioMateriaPrima;
+        materiaPrima.cantidad = this.cantidadMateriaPrima;
         this.listItemMateriaPrima.push(materiaPrima);
         this.requestentity.costoTotal = this.listItemMateriaPrima.map(a => a.precio).reduce(function (a, b) {
           return a + b;

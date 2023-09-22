@@ -9,11 +9,11 @@
         </div>
         <div class="form-group">
             <label>Costo Total</label>
-            <input type="text" class="form-control" placeholder="costoTotal" name="costoTotal" #costoTotal="ngModel"
-                [(ngModel)]="requestentity.costoTotal" [disabled]="true" required>
+            <input type="text" class="form-control" placeholder="costoTotal" name="costoTotal" [min]="1"
+                #costoTotal="ngModel" [(ngModel)]="requestentity.costoTotal" [disabled]="true" required>
         </div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label>Materia Prima</label>
                     <select class="form-control" name="MateriaPrima" #MateriaPrima="ngModel"
@@ -28,8 +28,14 @@
                 <div class="form-group">
                     <label>Precio</label>
                     <input type="number" class="form-control" placeholder="Precio" name="Precio" #Precio="ngModel"
-                        [(ngModel)]="precioMateriaPrima" [min]="1" required
-                        [class.invalid]="Precio.invalid && Precio.touched">
+                        [(ngModel)]="precioMateriaPrima">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Cantidad</label>
+                    <input type="number" class="form-control" placeholder="Cantidad" name="Cantidad" #Cantidad="ngModel"
+                        [(ngModel)]="cantidadMateriaPrima">
                 </div>
             </div>
             <div class="col-md-2 mt-3">
@@ -58,7 +64,8 @@
                         <td>{{entity.materiaPrima.idMateriaPrima}}</td>
                         <td>{{entity.materiaPrima.descripcion}}</td>
                         <td>{{entity.materiaPrima.unidadMedida}}</td>
-                        <td>{{entity.materiaPrima.cantidad}}</td>
+                        <!-- <td>{{entity.materiaPrima.cantidad}}</td> -->
+                        <td>{{entity.cantidad}}</td>
                         <td>{{entity.precio}}</td>
                         <td>
                             <i class="far fa-trash-alt fa-lg text-danger me-3"

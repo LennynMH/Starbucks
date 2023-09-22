@@ -5,5 +5,6 @@ export class ItemMateriaPrima {
     public idItemMateriPrima: number = 0;
     public item: Item;
     public materiaPrima: MateriaPrima;
-    public precio: number = 0;
+    public precio: number = 0; 
+    public cantidad: number = 0;
 }

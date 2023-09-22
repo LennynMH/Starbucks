@@ -27,16 +27,16 @@ export class ItemService extends ServiceBase {
   }
 
   Select(id) {
-    // let headers = this.GetHeader();
-    // const endpointUrl = this.baseURL + IncomeWebApi.UsuarioListarById;
-    // return this.http.get(endpointUrl + "?IdUsuario=" + id, headers).pipe(
-    //   map((response: any) => {
-    //     return response;
-    //   }),
-    //   catchError(err => {
-    //     throw err;
-    //   }),
-    // );
+    let headers = this.GetHeader();
+    const endpointUrl = this.baseURL + IncomeWebApi.ItemListarById;
+    return this.http.get(endpointUrl + "?IdItem=" + id, headers).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(err => {
+        throw err;
+      }),
+    );
   }
 
   Insert(params: any) {
@@ -53,16 +53,16 @@ export class ItemService extends ServiceBase {
   }
 
   Update(params: any) {
-    // let headers = this.GetHeader();
-    // const endpointUrl = this.baseURL + IncomeWebApi.UsuarioActualizar;
-    // return this.http.put(endpointUrl, params, headers).pipe(
-    //   map((response: any) => {
-    //     return response;
-    //   }),
-    //   catchError(err => {
-    //     throw err;
-    //   }),
-    // );
+    let headers = this.GetHeader();
+    const endpointUrl = this.baseURL + IncomeWebApi.ItemActualizar;
+    return this.http.put(endpointUrl, params, headers).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(err => {
+        throw err;
+      }),
+    );
   }
 
   Delete(id: number) {

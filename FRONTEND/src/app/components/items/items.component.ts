@@ -40,21 +40,21 @@ export class ItemsComponent extends ComponentBase implements OnInit {
     debugger;
     console.log(`params: ${JSON.stringify(params)}`);
     if (params.idItem !== 0) {
-      // this.service.Update(params).subscribe(
-      //   (response) => {
-      //     try {
-      //       if (response.success) {
-      //         this.Listar();
-      //         this.toastr.success("Edición exitosa");
-      //       }
-      //     }
-      //     catch (error) {
-      //       this.toastr.error("Error en la edición");
-      //     }
-      //   },
-      //   (error) => {
-      //     this.ManageErrors(error);
-      //   });
+      this.service.Update(params).subscribe(
+        (response) => {
+          try {
+            if (response.success) {
+              this.Listar();
+              this.toastr.success("Edición exitosa");
+            }
+          }
+          catch (error) {
+            this.toastr.error("Error en la edición");
+          }
+        },
+        (error) => {
+          this.ManageErrors(error);
+        });
     }
     else {
       this.service.Insert(params).subscribe(

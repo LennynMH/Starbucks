@@ -43,6 +43,16 @@
             public const string USP_SELECT_ITEMS = "USP_SELECT_ITEMS";
             public const string USP_SELECT_ITEMS_BY_ID = "USP_SELECT_ITEMS_BY_ID";
         }
+
+        public static class Orden
+        {
+            public const string USP_CREATE_ORDEN = "USP_CREATE_ORDEN";
+            public const string USP_UPDATE_ORDEN = "USP_UPDATE_ORDEN";
+            public const string USP_DELETE_ORDEN = "USP_DELETE_ORDEN";
+            public const string USP_SELECT_ORDEN = "USP_SELECT_ORDEN";
+            public const string USP_SELECT_ORDEN_BY_ID = "USP_SELECT_ORDEN_BY_ID";
+        }
+
         public static class Acceso
         {
             public const string USP_SELECT_USUARIO_BY_ACCESO = "USP_SELECT_USUARIO_BY_ACCESO";

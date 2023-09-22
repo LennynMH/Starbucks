@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.DTO.Response.Orden;
+using Domain.Entities;
 
 namespace ApplicationCore.Interface.IRepositories
 {
     public interface IOrdenRepository
     {
+        Task<IEnumerable<OrdenEntity>?> Listar();
+        Task<OrdenListarByIdResponse?> ListarById(int IdOrden);
+        Task<int> Eliminar(OrdenEntity param);
     }
 }

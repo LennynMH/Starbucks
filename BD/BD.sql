@@ -66,8 +66,8 @@ CREATE TABLE Item(
 	--Costo				DECIMAL(10,2) NOT NULL,
 	Activo				BIT DEFAULT 1 NOT NULL
 )
--- INSERT INTO Item(Descripcion,Costo) values ('test',3);
--- INSERT INTO Item(Descripcion,Costo) values ('test2',2);
+INSERT INTO Item(Descripcion,CostoTotal) values ('item 1',100);
+-- SELECT * FROM Item
 
 CREATE TABLE ItemMateriaPrima(
 	IdItemMateriPrima	INT IDENTITY  (1,1)  PRIMARY KEY,
@@ -78,6 +78,12 @@ CREATE TABLE ItemMateriaPrima(
 	CONSTRAINT [fk_ItemMateriaPrima_Item] FOREIGN KEY(IdItem)REFERENCES Item (IdItem) ,
 	CONSTRAINT [fk_ItemMateriaPrima_IdMateriaPrima] FOREIGN KEY(IdMateriaPrima)REFERENCES MateriaPrima (IdMateriaPrima) 
 )
+
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (1,1,10,2);
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (1,2,20,4);
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (1,3,30,6);
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (1,4,40,8);
+-- SELECT * FROM ItemMateriaPrima
 
 CREATE TABLE Estado(
 	IdEstado			INT IDENTITY  (1,1) PRIMARY KEY,
@@ -93,7 +99,8 @@ CREATE TABLE Orden(
 	NumeroOrden			VARCHAR(MAX),
 	FechaCreacion		DATETIME NOT NULL,
 	IdEstado			INT FOREIGN KEY REFERENCES Estado(IdEstado) NOT NULL,
-	TiempoOrden			INT
+	TiempoOrden			INT,
+	--Activo				BIT DEFAULT 1 NOT NULL
 )
 -- DROP TABLE   OrdenItem
 CREATE TABLE OrdenItem(

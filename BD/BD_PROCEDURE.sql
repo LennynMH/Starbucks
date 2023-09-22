@@ -351,6 +351,35 @@ BEGIN
 END
 GO
 
+/*********************************************** MateriaPrima ***********************************************/
+
+DROP PROCEDURE IF EXISTS USP_SELECT_MATERIA_PRIMA;
+GO
+CREATE PROCEDURE USP_SELECT_MATERIA_PRIMA
+AS
+BEGIN
+	SELECT 
+		m.IdMateriaPrima	,
+		m.Descripcion	,	
+		m.Cantidad		,
+		m.UnidadMedida,	
+		m.Activo		
+	from MateriaPrima m
+	WHERE m.Activo =1;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_DELETE_MATERIA_PRIMA;
+GO
+CREATE PROCEDURE USP_DELETE_MATERIA_PRIMA
+	@IdMateriaPrima				INT				
+AS
+BEGIN
+	UPDATE MateriaPrima SET Activo =0 WHERE IdMateriaPrima =@IdMateriaPrima ;
+END
+GO
+
+
 /*********************************************** Item ***********************************************/
 DROP PROCEDURE IF EXISTS USP_CREATE_ITEMS;
 GO
@@ -476,30 +505,92 @@ BEGIN
 END
 GO
 
-/*********************************************** MateriaPrima ***********************************************/
+/*********************************************** Orden ***********************************************/
 
-DROP PROCEDURE IF EXISTS USP_SELECT_MATERIA_PRIMA;
+DROP PROCEDURE IF EXISTS USP_SELECT_ORDEN;
 GO
-CREATE PROCEDURE USP_SELECT_MATERIA_PRIMA
+CREATE PROCEDURE USP_SELECT_ORDEN
 AS
 BEGIN
 	SELECT 
-		m.IdMateriaPrima	,
-		m.Descripcion	,	
-		m.Cantidad		,
-		m.UnidadMedida,	
-		m.Activo		
-	from MateriaPrima m
-	WHERE m.Activo =1;
+		i.IdOrden	,		
+		i.IdUsuario	,	
+		i.IdEmpleado,		
+		i.NumeroOrden,		
+		i.FechaCreacion,	
+		i.IdEstado	,	
+		i.TiempoOrden,
+
+		u.DocumentoIdentidad	,
+		u.Nombre		,		
+		u.Apellido	,		
+		u.Codigo	,		
+		
+		e.IdUsuario	 as IdUsuarioEmpleado,
+		e.DocumentoIdentidad	,
+		e.Nombre		,		
+		e.Apellido	,		
+		e.Codigo		
+	FROM Orden i
+	inner join Usuario u on u.IdUsuario = i.IdUsuario
+	left join Usuario e on e.IdUsuario = i.IdEmpleado
 END
 GO
 
-DROP PROCEDURE IF EXISTS USP_DELETE_MATERIA_PRIMA;
+
+DROP PROCEDURE IF EXISTS USP_SELECT_ORDEN_BY_ID;
 GO
-CREATE PROCEDURE USP_DELETE_MATERIA_PRIMA
-	@IdMateriaPrima				INT				
+CREATE PROCEDURE USP_SELECT_ORDEN_BY_ID
+@IdOrden INT
 AS
 BEGIN
-	UPDATE MateriaPrima SET Activo =0 WHERE IdMateriaPrima =@IdMateriaPrima ;
+	SELECT 
+		i.IdOrden	,		
+		i.IdUsuario	,	
+		i.IdEmpleado,		
+		i.NumeroOrden,		
+		i.FechaCreacion,	
+		i.IdEstado	,	
+		i.TiempoOrden,
+
+		u.DocumentoIdentidad	,
+		u.Nombre		,		
+		u.Apellido	,		
+		u.Codigo	,		
+		
+		e.IdUsuario	 as IdUsuarioEmpleado,
+		e.DocumentoIdentidad	,
+		e.Nombre		,		
+		e.Apellido	,		
+		e.Codigo		
+	FROM Orden i
+	inner join Usuario u on u.IdUsuario = i.IdUsuario
+	left join Usuario e on e.IdUsuario = i.IdEmpleado
+	WHERE IdOrden = @IdOrden;
+
+	SELECT 
+		d.IdOrdenItem,			
+		d.IdOrden,				
+		d.IdItem,				
+		d.TiempoItem,			
+		d.Precio	,			
+		d.Cantidad		,
+		
+		i.Descripcion	,
+		i.CostoTotal	
+	FROM OrdenItem d 
+	inner join Item i on i.IdItem = d.IdItem
+	WHERE IdOrden = @IdOrden;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_DELETE_ORDEN;
+GO
+CREATE PROCEDURE USP_DELETE_ORDEN
+	@IdOrden				INT		,
+	@IdEstado				INT		
+AS
+BEGIN
+	UPDATE Orden SET IdEstado = @IdEstado WHERE IdOrden =@IdOrden ;
 END
 GO

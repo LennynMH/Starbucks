@@ -14,19 +14,19 @@
                 <tr>
                     <th>Numero</th>
                     <th>Fecha</th>
-                    <th>Estado</th> 
+                    <th>Estado</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let entity of list">
-                   <td>{{entity.numeroOrden}}</td>
-                    <td>{{entity.fechaCreacion}}</td>
+                    <td>{{entity.numeroOrden}}</td>
+                    <td>{{getFormat(entity.fechaCreacion)}}</td>
                     <td>{{entity.estado.descripcion}}</td>
-                    <td>
+                    <td *ngIf="entity.estado.idEstado == 1">
                         <i class="far fa-trash-alt fa-lg text-danger me-3" (click)="Delete(entity.idOrden)"></i>
                         <i class="far fa-pen-to-square fa-lg text-primary" (click)="Update(entity.idOrden)"></i>
-                    </td> 
+                    </td>
                 </tr>
             </tbody>
         </table>

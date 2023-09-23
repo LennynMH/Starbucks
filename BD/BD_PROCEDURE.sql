@@ -568,6 +568,41 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE USP_UPDATE_ORDEN
+	@IdOrden		INT,
+	@IdUsuario		INT,
+	@IdEstado		INT,
+	@TiempoOrden	INT,
+	@ListOrdenItem	listOrdenItem READONLY
+AS
+BEGIN
+	UPDATE Orden
+	SET
+		IdUsuario	= @IdUsuario,	
+		IdEstado	= @IdEstado,	
+		TiempoOrden	= @TiempoOrden	
+	WHERE IdOrden = @IdOrden;
+	
+	DELETE FROM OrdenItem  WHERE IdOrden = @IdOrden;
+	-- select * from OrdenItem
+	INSERT INTO OrdenItem(
+		IdOrden	,			
+		IdItem	,			
+		TiempoItem,			
+		Precio	,			
+		Cantidad			
+	)
+	SELECT 
+		@IdOrden,
+		IdItem	,	
+		TiempoItem	,
+		Precio	,	
+		Cantidad	
+	FROM @ListOrdenItem;
+
+	SELECT @IdOrden;
+END
+GO
 
 DROP PROCEDURE IF EXISTS USP_SELECT_ORDEN;
 GO
@@ -647,6 +682,7 @@ BEGIN
 		d.Precio	,			
 		d.Cantidad		,
 		
+		i.IdItem,	
 		i.Descripcion	,
 		i.CostoTotal	
 	FROM OrdenItem d 

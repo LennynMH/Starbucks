@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { OrdenResponse } from 'src/app/shared/models/ordenResponse.model';
 import { OrdenService } from 'src/app/shared/services/orden.service';
 import { EstadosWebApi } from 'src/app/shared/constant';
+import * as moment from "moment";
+
 @Component({
   selector: 'app-ordenes',
   templateUrl: './ordenes.component.html',
@@ -37,7 +39,7 @@ export class OrdenesComponent extends ComponentBase implements OnInit {
   }
 
   Insert(params: any) {
-    debugger;
+    //debugger;
     console.log(`params: ${JSON.stringify(params)}`);
     if (params.idOrden !== 0) {
       this.service.Update(params).subscribe(
@@ -78,8 +80,9 @@ export class OrdenesComponent extends ComponentBase implements OnInit {
   }
 
   Delete(id: number) {
+    //debugger;
     if (confirm('¿Desea deshabilitar el registro?')) {
-      this.service.Delete(id).subscribe(
+      this.service.Delete(id, parseInt(EstadosWebApi.Eiminado)).subscribe(
         (response) => {
           try {
             if (response.success) {
@@ -105,5 +108,7 @@ export class OrdenesComponent extends ComponentBase implements OnInit {
   OpenCreate() {
     this.isOpenModal = true;
   }
-
+  getFormat(date) {
+    return moment(date).format("DD/MM/YYYY");
+  }
 }

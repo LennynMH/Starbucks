@@ -9,7 +9,6 @@ import { ItemService } from 'src/app/shared/services/Item.service';
 import { OrdenRequest } from 'src/app/shared/models/ordenRequest.model';
 import { ItemResponse } from 'src/app/shared/models/itemResponse.model';
 import { OrdenItem } from 'src/app/shared/entity/ordenItem.model';
-import { Usuario } from 'src/app/shared/entity/usuario.model';
 import { UsuarioResponse } from 'src/app/shared/models/usuarioResponse.model';
 @Component({
   selector: 'app-ordenes-popup',
@@ -32,7 +31,7 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
   public precioItem: number = 0;
   public cantidadItem: number = 0;
   public usuarioResponse: UsuarioResponse = new UsuarioResponse();
-
+  public idOrden: number = 0;
   constructor(
     public serviceOrden: OrdenService,
     public serviceItem: ItemService,
@@ -40,11 +39,13 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
     public override router: Router,
     private dateAdapter: DateAdapter<Date>) {
     super(router, toastr);
-    this.tituloModal = "crear orden";
     this.sizeModal = "modal-lg";
+    this.dateAdapter.setLocale('en-GB');
   }
 
   ngOnInit(): void {
+    this.idOrden = parseInt(localStorage.getItem("id") == null ? "0" : localStorage.getItem("id"));
+    this.tituloModal = this.idOrden == 0 ? "crear orden" : "actualizar orden";
     this.usuarioResponse = JSON.parse(localStorage.getItem("SessionUsuario"));
     this.onCargarItem();
     this.Initialize();
@@ -55,14 +56,12 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
     if (id) {
       this.serviceOrden.Select(id).subscribe(
         (response) => {
-          debugger;
+          //debugger;
           if (response.success) {
             let datos = response.data;
-            // this.requestentity.idItem = datos.item.idItem;
-            // this.requestentity.descripcion = datos.item.descripcion;
-            // this.requestentity.costoTotal = datos.item.costoTotal;
-            // this.listItemMateriaPrima = datos.itemMateriaPrima;
-            console.log(`datos: ${JSON.stringify(datos)}`);
+            this.requestentity = datos.orden;
+            this.listOrdenItem = datos.ordenItem;
+            //console.log(`datos: ${JSON.stringify(datos)}`);
           }
         },
         (error) => {
@@ -86,12 +85,12 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if(this.listOrdenItem.length > 0) { 
+    if (this.listOrdenItem.length > 0) {
       this.InsertModal(form)
     }
-   else {   
-    this.toastr.error("falta agregar detalles");
-   }
+    else {
+      this.toastr.error("falta agregar detalles");
+    }
   }
 
   onChangeItem(value: any) {
@@ -127,7 +126,7 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
   }
 
   InsertModal(form: NgForm) {
-    this.requestentity.usuario = this.usuarioResponse ; //{ idUsuario: this.usuarioResponse.idUsuario };
+    this.requestentity.usuario = this.usuarioResponse; //{ idUsuario: this.usuarioResponse.idUsuario };
     this.requestentity.listOrdenItem = this.listOrdenItem;
     this.requestentity.tiempoOrden = this.listOrdenItem.map(a => a.tiempoItem).reduce(function (a, b) {
       return a + b;
@@ -141,4 +140,15 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
     this.requestentity = new OrdenRequest();
   }
 
+  Delete(idOrdenItem: number, idItem: number) {
+    //debugger;
+    this.listOrdenItem = this.listOrdenItem.filter((value, key) => {
+      return value.item.idItem != idItem;
+    });
+    if (this.listOrdenItem.length > 0) {
+      this.requestentity.tiempoOrden = this.listOrdenItem.map(a => a.tiempoItem).reduce(function (a, b) {
+        return a + b;
+      });
+    }
+  }
 }

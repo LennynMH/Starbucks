@@ -12,7 +12,8 @@ namespace ApplicationCore.Mappings
             //Orden
             CreateMap<OrdenEntity, OrdenListarResponse>();
             CreateMap<OrdenRegistrarRequest, OrdenEntity>();
-            CreateMap<OrdenEliminarRequest, OrdenEntity>();
+            CreateMap<OrdenEliminarRequest, OrdenEntity>()
+                .ForPath(des => des.Estado.IdEstado, opt => opt.MapFrom(src => src.IdEstado));
         }
     }
 }

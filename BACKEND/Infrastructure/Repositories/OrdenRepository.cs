@@ -53,6 +53,42 @@ namespace Infrastructure.Repositories
             }
             return result;
         }
+
+        public async Task<int> Actualizar(OrdenEntity param, List<OrdenItemRegistrarRequest> listOrdenItem)
+        {
+            int result;
+            var ListOrdenItem = listOrdenItem.AsTableValuedParameter("listOrdenItem", true, new List<string> { "IdItem", "TiempoItem", "Precio", "Cantidad" });
+
+            using (var dbConnection = ObtenerConexion())
+            {
+                dbConnection.Open();
+                using (var dbtransaction = dbConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        result = await dbConnection.QuerySingleAsync<int>(ConstStoreProcedure.Orden.USP_UPDATE_ORDEN,
+                            new
+                            {
+                                param.IdOrden,
+                                param.Usuario.IdUsuario,
+                                param.Estado.IdEstado,
+                                param.TiempoOrden,
+                                ListOrdenItem
+                            },
+                            transaction: dbtransaction,
+                            commandType: CommandType.StoredProcedure);
+
+                        dbtransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbtransaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            return result;
+        }
         public async Task<IEnumerable<OrdenEntity>?> Listar()
         {
             using (var dbConnection = ObtenerConexion())

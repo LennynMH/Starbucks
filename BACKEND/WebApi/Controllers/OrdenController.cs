@@ -46,6 +46,29 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
+        /// Crear Método que actualizar orden
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>actualizar orden</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Actualizar
+        ///     {
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the newly created orden</response>
+        /// <response code="400">If the orden is null</response>
+        [HttpPut("Actualizar")]
+        [ProducesResponseType(typeof(OrdenRegistrarRequest), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Actualizar([FromBody] OrdenRegistrarRequest query)
+        {
+            return Ok(await _ordenService.Actualizar(query));
+        }
+
+        /// <summary>
         /// Crear Método que obtiene orden
         /// </summary>
         /// <param name="item"></param>
@@ -108,12 +131,12 @@ namespace WebApi.Controllers
         /// </remarks>
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
-        //[HttpDelete("Eliminar/{IdItem:int}")]
-        [HttpDelete("Eliminar")]
+        [HttpDelete("Eliminar/{IdOrden:int}/{IdEstado:int}")]
         [ProducesResponseType(typeof(OrdenEliminarRequest), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Eliminar([FromBody] OrdenEliminarRequest query)
+        public async Task<IActionResult> Eliminar(int IdOrden, int IdEstado)
         {
+            var query = new OrdenEliminarRequest { IdOrden = IdOrden, IdEstado = IdEstado };
             return Ok(await _ordenService.Eliminar(query));
         }
 

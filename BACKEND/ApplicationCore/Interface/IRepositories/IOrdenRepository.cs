@@ -7,6 +7,7 @@ namespace ApplicationCore.Interface.IRepositories
     public interface IOrdenRepository
     {
         Task<int> Registrar(OrdenEntity param, List<OrdenItemRegistrarRequest> listOrdenItem);
+        Task<int> Actualizar(OrdenEntity param, List<OrdenItemRegistrarRequest> listOrdenItem);
         Task<IEnumerable<OrdenEntity>?> Listar();
         Task<OrdenListarByIdResponse?> ListarById(int IdOrden);
         Task<int> Eliminar(OrdenEntity param);

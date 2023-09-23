@@ -65,10 +65,10 @@ export class OrdenService extends ServiceBase {
     );
   }
 
-  Delete(id: number) {
+  Delete(idOrden: number, idEstado: number /*params: any*/) {
     let headers = this.GetHeader();
     const endpointUrl = this.baseURL + IncomeWebApi.OrdenEliminar;
-    return this.http.delete(endpointUrl + '/' + id, headers).pipe(
+    return this.http.delete(endpointUrl + '/' + idOrden + '/' + idEstado, headers).pipe(
       map((response: any) => {
         return response;
       }),

@@ -29,6 +29,14 @@ namespace ApplicationCore.Services
             var response = new HttpResponseResult<int>() { Data = responsemapper };
             return response;
         }
+        public async Task<HttpResponseResult<int>> Actualizar(OrdenRegistrarRequest param)
+        {
+            var parammapper = _mapper.Map<OrdenEntity>(param);
+            var parammapperDetalle = _mapper.Map<List<OrdenItemRegistrarRequest>>(param.ListOrdenItem);
+            var responsemapper = await _ordenRepository.Actualizar(parammapper, parammapperDetalle);
+            var response = new HttpResponseResult<int>() { Data = responsemapper };
+            return response;
+        }
 
         public async Task<HttpResponseResult<List<OrdenListarResponse>>> Listar()
         {

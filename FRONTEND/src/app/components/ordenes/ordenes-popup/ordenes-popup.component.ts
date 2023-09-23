@@ -9,6 +9,8 @@ import { ItemService } from 'src/app/shared/services/Item.service';
 import { OrdenRequest } from 'src/app/shared/models/ordenRequest.model';
 import { ItemResponse } from 'src/app/shared/models/itemResponse.model';
 import { OrdenItem } from 'src/app/shared/entity/ordenItem.model';
+import { Usuario } from 'src/app/shared/entity/usuario.model';
+import { UsuarioResponse } from 'src/app/shared/models/usuarioResponse.model';
 @Component({
   selector: 'app-ordenes-popup',
   templateUrl: './ordenes-popup.component.html',
@@ -17,7 +19,7 @@ import { OrdenItem } from 'src/app/shared/entity/ordenItem.model';
 export class OrdenesPopupComponent extends ComponentBase implements OnInit {
   @Output() public close: EventEmitter<boolean> = new EventEmitter();
   @Output() public eventInsert: EventEmitter<any> = new EventEmitter();
-  
+
   public tituloModal: string;
   public sizeModal: string;
   public idItem: number = 0;
@@ -25,6 +27,11 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
   public requestentity: OrdenRequest = new OrdenRequest();
   public lisItem: ItemResponse[] = [];
   public listOrdenItem: OrdenItem[] = [];
+  public item: ItemResponse = new ItemResponse();
+
+  public precioItem: number = 0;
+  public cantidadItem: number = 0;
+  public usuarioResponse: UsuarioResponse = new UsuarioResponse();
 
   constructor(
     public serviceOrden: OrdenService,
@@ -38,6 +45,7 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
   }
 
   ngOnInit(): void {
+    this.usuarioResponse = JSON.parse(localStorage.getItem("SessionUsuario"));
     this.onCargarItem();
     this.Initialize();
   }
@@ -78,42 +86,40 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.InsertModal(form)
+    if(this.listOrdenItem.length > 0) { 
+      this.InsertModal(form)
+    }
+   else {   
+    this.toastr.error("falta agregar detalles");
+   }
   }
 
   onChangeItem(value: any) {
     //debugger;
-    // this.idMateriaPrima = value;
-    // var materia = this.lisMateriaPrima.find(x => x.idMateriaPrima == value);
-    // this.materiaPrima = materia;
-    // this.precioMateriaPrima = 0;
-    // this.cantidadMateriaPrima = 1;
+    this.idItem = value;
+    var item = this.lisItem.find(x => x.idItem == value);
+    this.item = item;
     //console.log(`materia: ${JSON.stringify(materia)}`);;
   }
 
   onclickAgregar() {
     //debugger;
-    // var materiaPrima: ItemMateriaPrima = new ItemMateriaPrima();
-    // if (this.idMateriaPrima == 0) {
-    //   this.toastr.error("selecione materia prima");
-    // } else if (this.precioMateriaPrima == 0) {
-    //   this.toastr.error("ingrese precio");
-    // }
-    // else {
-    //   var validaitem = this.listItemMateriaPrima.find(x => x.materiaPrima.idMateriaPrima == this.idMateriaPrima);
-    //   if (validaitem) {
-    //     this.toastr.error("la materia prima ya esta agregada");
-    //   } else {
-    //     this.requestItemMateriaPrima.materiaPrima = null;
-    //     materiaPrima.materiaPrima = this.materiaPrima;
-    //     materiaPrima.precio = this.precioMateriaPrima;
-    //     materiaPrima.cantidad = this.cantidadMateriaPrima;
-    //     this.listItemMateriaPrima.push(materiaPrima);
-    //     this.requestentity.costoTotal = this.listItemMateriaPrima.map(a => a.precio).reduce(function (a, b) {
-    //       return a + b;
-    //     });
-    //   }
-    // }
+    var ordenItem: OrdenItem = new OrdenItem();
+    if (this.idItem == 0) {
+      this.toastr.error("selecione items");
+    }
+    else {
+      var validaitem = this.listOrdenItem.find(x => x.item.idItem == this.idItem);
+      if (validaitem) {
+        this.toastr.error("la materia prima ya esta agregada");
+      } else {
+        ordenItem.item = this.item;
+        ordenItem.tiempoItem = 5;
+        ordenItem.precio = this.precioItem;
+        ordenItem.cantidad = this.cantidadItem;
+        this.listOrdenItem.push(ordenItem);
+      }
+    }
   }
 
   closeModal($event: boolean) {
@@ -121,7 +127,11 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
   }
 
   InsertModal(form: NgForm) {
-    //this.requestentity.listItemMateriaPrimaEntity = this.listItemMateriaPrima;
+    this.requestentity.usuario = this.usuarioResponse ; //{ idUsuario: this.usuarioResponse.idUsuario };
+    this.requestentity.listOrdenItem = this.listOrdenItem;
+    this.requestentity.tiempoOrden = this.listOrdenItem.map(a => a.tiempoItem).reduce(function (a, b) {
+      return a + b;
+    });
     this.eventInsert.emit(this.requestentity);
     this.ResetForm(form);
   }

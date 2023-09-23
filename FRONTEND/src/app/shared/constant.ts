@@ -35,6 +35,13 @@ export const RolesWebApi = {
     Supervisor: "4",
 }
 
+export const EstadosWebApi = {
+    Creado: "1",
+    Asignado: "2",
+    Terminado: "3",
+    Eiminado: "4",
+
+}
 export const MenuWebApi = {
     //El administrador tiene la capacidad de modificar y borrar usuarios y roles, 
     //como también subsanar errores generados durante la operación y parametrizar el sistema.

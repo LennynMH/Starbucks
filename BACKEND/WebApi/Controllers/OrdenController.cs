@@ -21,6 +21,30 @@ namespace WebApi.Controllers
             this._logger = logger;
         }
 
+
+        /// <summary>
+        /// Crear Método que registra orden
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>registrar orden</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Registrar
+        ///     {
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the newly created orden</response>
+        /// <response code="400">If the orden is null</response>
+        [HttpPost("Registrar")]
+        [ProducesResponseType(typeof(OrdenRegistrarRequest), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Registrar([FromBody] OrdenRegistrarRequest query)
+        {
+            return Ok(await _ordenService.Registrar(query));
+        }
+
         /// <summary>
         /// Crear Método que obtiene orden
         /// </summary>

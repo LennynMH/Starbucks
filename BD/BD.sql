@@ -49,24 +49,42 @@ CREATE TABLE MateriaPrima(
 	Descripcion			VARCHAR(100) NOT NULL,
 	Cantidad			INT,
 	UnidadMedida		VARCHAR(5),
-	--Precio				DECIMAL(10,2) NOT NULL,
+	--Precio			DECIMAL(10,2) NOT NULL,
 	Activo				BIT DEFAULT 1 NOT NULL
 
 )
-INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('CAFE',8,'KL');
-INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('AZUCAR',5,'KL');
-INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('LECHE',10,'LT');
-INSERT INTO MateriaPrima(Descripcion,Cantidad,UnidadMedida) values ('FRESAS',3,'KL');
+
+SET IDENTITY_INSERT MateriaPrima ON
+INSERT INTO MateriaPrima(IdMateriaPrima,Descripcion,Cantidad,UnidadMedida) values (1,'CHOCOLATE',0,'KL');
+INSERT INTO MateriaPrima(IdMateriaPrima,Descripcion,Cantidad,UnidadMedida) values (2,'AZUCAR',0,'KL');
+																				  
+INSERT INTO MateriaPrima(IdMateriaPrima,Descripcion,Cantidad,UnidadMedida) values (3,'LECHE',0,'LT');
+INSERT INTO MateriaPrima(IdMateriaPrima,Descripcion,Cantidad,UnidadMedida) values (4,'FRESAS',0,'KL');
+																				
+INSERT INTO MateriaPrima(IdMateriaPrima,Descripcion,Cantidad,UnidadMedida) values (5,'MARACUYA',0,'KL');
+INSERT INTO MateriaPrima(IdMateriaPrima,Descripcion,Cantidad,UnidadMedida) values (6,'PIÑA',0,'KL');
+INSERT INTO MateriaPrima(IdMateriaPrima,Descripcion,Cantidad,UnidadMedida) values (7,'PAPAYA',0,'KL');
+INSERT INTO MateriaPrima(IdMateriaPrima,Descripcion,Cantidad,UnidadMedida) values (8,'MANGO',0,'KL');
+SET IDENTITY_INSERT MateriaPrima OFF
 -- SELECT * FROM MateriaPrima
 
 CREATE TABLE Item(
 	IdItem				INT IDENTITY  (1,1)  PRIMARY KEY,
 	Descripcion			VARCHAR(100) NOT NULL,
-	CostoTotal				DECIMAL(10,2) NOT NULL,
+	CostoTotal			DECIMAL(10,2) NOT NULL,
 	--Costo				DECIMAL(10,2) NOT NULL,
 	Activo				BIT DEFAULT 1 NOT NULL
 )
-INSERT INTO Item(Descripcion,CostoTotal) values ('item 1',100);
+
+SET IDENTITY_INSERT Item ON
+INSERT INTO Item(IdItem,Descripcion,CostoTotal) values (1,'CHOCOLATADA',10);
+INSERT INTO Item(IdItem,Descripcion,CostoTotal) values (2,'JUGO DE FRESA',15);
+INSERT INTO Item(IdItem,Descripcion,CostoTotal) values (3,'JUGO DE MARACUYA',10);
+INSERT INTO Item(IdItem,Descripcion,CostoTotal) values (4,'JUGO DE PIÑA',10);
+INSERT INTO Item(IdItem,Descripcion,CostoTotal) values (5,'JUGO DE PAPAYA',10);
+INSERT INTO Item(IdItem,Descripcion,CostoTotal) values (6,'JUGO DE MANGO',10);
+SET IDENTITY_INSERT Item OFF
+
 -- SELECT * FROM Item
 
 CREATE TABLE ItemMateriaPrima(
@@ -79,10 +97,23 @@ CREATE TABLE ItemMateriaPrima(
 	CONSTRAINT [fk_ItemMateriaPrima_IdMateriaPrima] FOREIGN KEY(IdMateriaPrima)REFERENCES MateriaPrima (IdMateriaPrima) 
 )
 
-INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (1,1,10,2);
-INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (1,2,20,4);
-INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (1,3,30,6);
-INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (1,4,40,8);
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (1,1,5,100);
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (1,2,5,100);
+
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (2,3,5,100);
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (2,4,5,100);
+
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (3,2,5,100);
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (3,5,5,100);
+
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (4,2,5,100);
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (4,6,5,100);
+
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (4,2,5,100);
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (4,7,5,100);
+
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (5,2,5,100);
+INSERT INTO ItemMateriaPrima(IdItem,IdMateriaPrima,Precio,Cantidad) values (5,8,5,100);
 -- SELECT * FROM ItemMateriaPrima
 
 CREATE TABLE Estado(
@@ -90,7 +121,13 @@ CREATE TABLE Estado(
 	Descripcion			VARCHAR(100) NOT NULL,
 	Activo				BIT DEFAULT 1 NOT NULL
 )
---INSERT INTO Estado(Descripcion) values ('creado');
+SET IDENTITY_INSERT Estado ON
+INSERT INTO Estado(IdEstado,Descripcion) values (1,'CREADO');
+INSERT INTO Estado(IdEstado,Descripcion) values (2,'ASIGNADO');
+INSERT INTO Estado(IdEstado,Descripcion) values (3,'TERMINADO');
+INSERT INTO Estado(IdEstado,Descripcion) values (4,'ELIMINADO');
+SET IDENTITY_INSERT Estado OFF
+
 -- SELECT * FROM Estado
 
 --El usuario solo puede realizar ordenes de los ítems disponibles en función de las materias primas disponibles. 
@@ -98,8 +135,8 @@ CREATE TABLE Estado(
 CREATE TABLE Orden(
 	IdOrden				INT IDENTITY  (1,1) PRIMARY KEY,
 	IdUsuario			INT FOREIGN KEY REFERENCES Usuario(IdUsuario) NOT NULL,
-	IdEmpleado			INT FOREIGN KEY REFERENCES Usuario(IdUsuario) NOT NULL,
-	NumeroOrden			VARCHAR(MAX),
+	IdEmpleado			INT FOREIGN KEY REFERENCES Usuario(IdUsuario)  NULL,
+	NumeroOrden			VARCHAR(MAX) NULL,
 	FechaCreacion		DATETIME NOT NULL,
 	IdEstado			INT FOREIGN KEY REFERENCES Estado(IdEstado) NOT NULL,
 	TiempoOrden			INT,

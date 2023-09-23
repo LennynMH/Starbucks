@@ -8,4 +8,5 @@ export class Orden {
     public empleado: Usuario;
     public fechaCreacion: Date = new Date();
     public estado: Estado;
+    public tiempoOrden: number = 0;
 }

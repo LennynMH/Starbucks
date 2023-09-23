@@ -506,6 +506,68 @@ END
 GO
 
 /*********************************************** Orden ***********************************************/
+--USP_CREATE_ORDEN
+DROP PROCEDURE IF EXISTS USP_CREATE_ORDEN;
+GO
+DROP PROCEDURE IF EXISTS USP_UPDATE_ORDEN;
+GO
+DROP TYPE IF EXISTS listOrdenItem;
+GO
+CREATE TYPE listOrdenItem AS TABLE
+(
+	IdItem				INT NULL,
+	TiempoItem			INT NULL,
+	Precio				DECIMAL(10,2)  NULL,
+	Cantidad			INT NULL
+)
+GO
+CREATE PROCEDURE USP_CREATE_ORDEN
+	@IdUsuario		INT,
+	@IdEstado		INT,
+	@TiempoOrden	INT,
+	@ListOrdenItem	listOrdenItem READONLY
+AS
+BEGIN
+	DECLARE @IdOrden INT =0;
+	DECLARE @Rows INT = (select count(*) + 1 from Orden);
+	DECLARE @NumeroOrden VARCHAR(50) = (SELECT 'OR-' + REPLICATE('0',5) + CAST(@Rows AS VARCHAR) );
+	INSERT INTO Orden
+	(
+		IdUsuario,		
+		--IdEmpleado,		
+		NumeroOrden	,	
+		FechaCreacion,	
+		IdEstado	,	
+		TiempoOrden		
+	) values 
+	(
+		@IdUsuario,
+		@NumeroOrden,
+		GETDATE(),
+		@IdEstado,
+		@TiempoOrden
+	);
+	SET @IdOrden = CAST(SCOPE_IDENTITY() AS INT);
+	-- select * from OrdenItem
+	INSERT INTO OrdenItem(
+		IdOrden	,			
+		IdItem	,			
+		TiempoItem,			
+		Precio	,			
+		Cantidad			
+	)
+	SELECT 
+		@IdOrden,
+		IdItem	,	
+		TiempoItem	,
+		Precio	,	
+		Cantidad	
+	FROM @ListOrdenItem;
+
+	SELECT @IdOrden;
+END
+GO
+
 
 DROP PROCEDURE IF EXISTS USP_SELECT_ORDEN;
 GO
@@ -521,19 +583,20 @@ BEGIN
 		i.IdEstado	,	
 		i.TiempoOrden,
 
+		u.IdUsuario	,	
 		u.DocumentoIdentidad	,
 		u.Nombre		,		
 		u.Apellido	,		
 		u.Codigo	,		
 		
-		e.IdUsuario	 as IdUsuarioEmpleado,
+		e.IdUsuario	 as IdEmpleado,
 		e.DocumentoIdentidad	,
 		e.Nombre		,		
 		e.Apellido	,		
 		e.Codigo,
 
-		s.Descripcion,
-		s.IdEstado
+		s.IdEstado,
+		s.Descripcion
 	FROM Orden i
 	inner join Usuario u on u.IdUsuario = i.IdUsuario
 	left join Usuario e on e.IdUsuario = i.IdEmpleado
@@ -562,14 +625,14 @@ BEGIN
 		u.Apellido	,		
 		u.Codigo	,		
 		
-		e.IdUsuario	 as IdUsuarioEmpleado,
+		e.IdUsuario	 as IdEmpleado,
 		e.DocumentoIdentidad	,
 		e.Nombre		,		
 		e.Apellido	,		
 		e.Codigo	,
-		
-		s.Descripcion,
-		s.IdEstado
+
+		s.IdEstado,
+		s.Descripcion
 	FROM Orden i
 	inner join Usuario u on u.IdUsuario = i.IdUsuario
 	left join Usuario e on e.IdUsuario = i.IdEmpleado
@@ -602,3 +665,5 @@ BEGIN
 	UPDATE Orden SET IdEstado = @IdEstado WHERE IdOrden =@IdOrden ;
 END
 GO
+
+

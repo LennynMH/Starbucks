@@ -3,6 +3,7 @@ using ApplicationCore.Interface.IServices;
 using AutoMapper;
 using Domain.Core;
 using Domain.DTO.Request.Orden;
+using Domain.DTO.Request.OrdenItem;
 using Domain.DTO.Response.Orden;
 using Domain.Entities;
 
@@ -18,6 +19,15 @@ namespace ApplicationCore.Services
         {
             this._ordenRepository = ordenRepository;
             this._mapper = mapper;
+        }
+
+        public async Task<HttpResponseResult<int>> Registrar(OrdenRegistrarRequest param)
+        {
+            var parammapper = _mapper.Map<OrdenEntity>(param);
+            var parammapperDetalle = _mapper.Map<List<OrdenItemRegistrarRequest>>(param.ListOrdenItem);
+            var responsemapper = await _ordenRepository.Registrar(parammapper, parammapperDetalle);
+            var response = new HttpResponseResult<int>() { Data = responsemapper };
+            return response;
         }
 
         public async Task<HttpResponseResult<List<OrdenListarResponse>>> Listar()

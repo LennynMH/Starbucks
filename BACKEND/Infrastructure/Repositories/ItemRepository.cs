@@ -51,7 +51,6 @@ namespace Infrastructure.Repositories
             }
             return result;
         }
-
         public async Task<int> Actualizar(ItemEntity param, List<ItemMateriaPrimaRegisrtarRequest> listItemMateriaPrimaEntities)
         {
             int result;

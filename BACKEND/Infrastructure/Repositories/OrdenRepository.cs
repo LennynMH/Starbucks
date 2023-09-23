@@ -1,9 +1,12 @@
 ﻿using ApplicationCore.Interface.IRepositories;
 using Dapper;
 using Domain.Constants;
+using Domain.DTO.Request.ItemMateriaPrima;
+using Domain.DTO.Request.OrdenItem;
 using Domain.DTO.Response.Orden;
 using Domain.Entities;
 using Infrastructure.Conecction.Dapper;
+using Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 
@@ -16,6 +19,40 @@ namespace Infrastructure.Repositories
         {
         }
 
+        public async Task<int> Registrar(OrdenEntity param, List<OrdenItemRegistrarRequest> listOrdenItem)
+        {
+            int result;
+            var ListOrdenItem = listOrdenItem.AsTableValuedParameter("listOrdenItem", true, new List<string> { "IdItem", "TiempoItem", "Precio", "Cantidad" });
+
+            using (var dbConnection = ObtenerConexion())
+            {
+                dbConnection.Open();
+                using (var dbtransaction = dbConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        result = await dbConnection.QuerySingleAsync<int>(ConstStoreProcedure.Orden.USP_CREATE_ORDEN,
+                            new
+                            {
+                                param.Usuario.IdUsuario,
+                                param.Estado.IdEstado,
+                                param.TiempoOrden,
+                                ListOrdenItem
+                            },
+                            transaction: dbtransaction,
+                            commandType: CommandType.StoredProcedure);
+
+                        dbtransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbtransaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            return result;
+        }
         public async Task<IEnumerable<OrdenEntity>?> Listar()
         {
             using (var dbConnection = ObtenerConexion())
@@ -25,7 +62,7 @@ namespace Infrastructure.Repositories
                 (orden, usuario, empleado, estado) =>
                 {
                     orden.Usuario = usuario;
-                    orden.Empleado = empleado;
+                   orden.Empleado = empleado;
                     orden.Estado = estado;
                     return orden;
                 },

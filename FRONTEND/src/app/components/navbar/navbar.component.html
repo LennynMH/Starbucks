@@ -10,12 +10,12 @@
           <a class="nav-link" routerLink="{{item.url}}">{{item.text}}</a>
         </li>
       </ul>
-      <form class="d-flex input-group w-auto">
-        <span *ngIf="isLoggedIn">
-          <!-- USUARIO: {{ Usuario}} -->
-          PERFIL: {{ RolNombre }}
-        </span>
-        <button (click)="LogOut()" class="btn btn-primary" type="button">
+
+      <form class="form-inline my-2 my-lg-0 text-center">
+        <label style="color: white;background-color: #0d6efd;border: none;" class="form-control mr-sm-2 nav-link"
+          *ngIf="isLoggedIn">
+         <span>{{ Usuario }} - {{ RolNombre }}</span> </label>
+        <button (click)="LogOut()" class="btn btn-danger" type="button">
           Cerrar Sesion
         </button>
       </form>

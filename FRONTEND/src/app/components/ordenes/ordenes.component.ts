@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { OrdenResponse } from 'src/app/shared/models/ordenResponse.model';
 import { OrdenService } from 'src/app/shared/services/orden.service';
+import { EstadosWebApi } from 'src/app/shared/constant';
 @Component({
   selector: 'app-ordenes',
   templateUrl: './ordenes.component.html',
@@ -38,7 +39,7 @@ export class OrdenesComponent extends ComponentBase implements OnInit {
   Insert(params: any) {
     debugger;
     console.log(`params: ${JSON.stringify(params)}`);
-    if (params.idItem !== 0) {
+    if (params.idOrden !== 0) {
       this.service.Update(params).subscribe(
         (response) => {
           try {
@@ -56,6 +57,7 @@ export class OrdenesComponent extends ComponentBase implements OnInit {
         });
     }
     else {
+      params.estado = { idEstado: EstadosWebApi.Creado };
       this.service.Insert(params).subscribe(
         (response) => {
           try {

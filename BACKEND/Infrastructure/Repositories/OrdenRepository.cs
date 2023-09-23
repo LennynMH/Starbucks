@@ -20,17 +20,18 @@ namespace Infrastructure.Repositories
         {
             using (var dbConnection = ObtenerConexion())
             {
-                var result = await dbConnection.QueryAsync<OrdenEntity, UsuarioEntity, UsuarioEntity, OrdenEntity>
+                var result = await dbConnection.QueryAsync<OrdenEntity, UsuarioEntity, UsuarioEntity, EstadoEntity, OrdenEntity>
                 (ConstStoreProcedure.Orden.USP_SELECT_ORDEN,
-                (orden, usuario, empleado) =>
+                (orden, usuario, empleado, estado) =>
                 {
                     orden.Usuario = usuario;
                     orden.Empleado = empleado;
+                    orden.Estado = estado;
                     return orden;
                 },
                 new
                 { },
-                splitOn: "IdUsuario,IdEmpleado",
+                splitOn: "IdUsuario,IdEmpleado,IdEstado",
                 commandType: CommandType.StoredProcedure);
                 return result;
             }
@@ -50,13 +51,14 @@ namespace Infrastructure.Repositories
                         commandType: CommandType.StoredProcedure
                     );
 
-                var orden = reader.Read<OrdenEntity, UsuarioEntity, UsuarioEntity, OrdenEntity>((orden, usuario, empleado) =>
+                var orden = reader.Read<OrdenEntity, UsuarioEntity, UsuarioEntity, EstadoEntity, OrdenEntity>((orden, usuario, empleado, estado) =>
                 {
                     orden.Usuario = usuario;
                     orden.Empleado = empleado;
+                    orden.Estado = estado;
                     return orden;
                 },
-                  splitOn: "IdUsuario,IdEmpleado").FirstOrDefault();
+                  splitOn: "IdUsuario,IdEmpleado,IdEstado").FirstOrDefault();
 
                 var ordenitem = reader.Read<OrdenItemEntity, ItemEntity, OrdenItemEntity>((orden, item) =>
                 {
@@ -70,8 +72,6 @@ namespace Infrastructure.Repositories
                 return result;
             }
         }
-
-
         public async Task<int> Eliminar(OrdenEntity param)
         {
             int result;

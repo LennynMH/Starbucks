@@ -90,6 +90,9 @@ CREATE TABLE Estado(
 	Descripcion			VARCHAR(100) NOT NULL,
 	Activo				BIT DEFAULT 1 NOT NULL
 )
+--INSERT INTO Estado(Descripcion) values ('creado');
+-- SELECT * FROM Estado
+
 --El usuario solo puede realizar ordenes de los ítems disponibles en función de las materias primas disponibles. 
 -- DROP TABLE   Orden
 CREATE TABLE Orden(

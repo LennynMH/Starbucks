@@ -530,10 +530,14 @@ BEGIN
 		e.DocumentoIdentidad	,
 		e.Nombre		,		
 		e.Apellido	,		
-		e.Codigo		
+		e.Codigo,
+
+		s.Descripcion,
+		s.IdEstado
 	FROM Orden i
 	inner join Usuario u on u.IdUsuario = i.IdUsuario
 	left join Usuario e on e.IdUsuario = i.IdEmpleado
+	inner join Estado s on s.IdEstado = i.IdEstado
 END
 GO
 
@@ -562,10 +566,14 @@ BEGIN
 		e.DocumentoIdentidad	,
 		e.Nombre		,		
 		e.Apellido	,		
-		e.Codigo		
+		e.Codigo	,
+		
+		s.Descripcion,
+		s.IdEstado
 	FROM Orden i
 	inner join Usuario u on u.IdUsuario = i.IdUsuario
 	left join Usuario e on e.IdUsuario = i.IdEmpleado
+	inner join Estado s on s.IdEstado = i.IdEstado
 	WHERE IdOrden = @IdOrden;
 
 	SELECT 

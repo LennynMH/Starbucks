@@ -1,23 +1,47 @@
 ﻿using ApplicationCore.Interface.IRepositories;
 using ApplicationCore.Interface.IServices;
 using AutoMapper;
+using Domain.Core;
+using Domain.DTO.Request.Orden;
+using Domain.DTO.Response.Orden;
+using Domain.Entities;
 
 namespace ApplicationCore.Services
 {
     public class OrdenService: IOrdenService
     {
-        private readonly IOrdenRepository _itemRepository;
+        private readonly IOrdenRepository _ordenRepository;
         private readonly IMapper _mapper;
         public OrdenService(
-            IOrdenRepository itemRepository
+            IOrdenRepository ordenRepository
            , IMapper mapper)
         {
-            this._itemRepository = itemRepository;
+            this._ordenRepository = ordenRepository;
             this._mapper = mapper;
         }
 
+        public async Task<HttpResponseResult<List<OrdenListarResponse>>> Listar()
+        {
+            var result = await this._ordenRepository.Listar();
+            var responsemapper = _mapper.Map<IEnumerable<OrdenListarResponse>>(result);
+            var response = new HttpResponseResult<List<OrdenListarResponse>>() { Data = responsemapper.ToList<OrdenListarResponse>() };
+            return response;
+        }
 
+        public async Task<HttpResponseResult<OrdenListarByIdResponse>> ListarById(int IdOrden)
+        {
+            var result = await this._ordenRepository.ListarById(IdOrden);
+            var responsemapper = _mapper.Map<OrdenListarByIdResponse>(result);
+            var response = new HttpResponseResult<OrdenListarByIdResponse>() { Data = responsemapper };
+            return response;
+        }
 
-
+        public async Task<HttpResponseResult<int>> Eliminar(OrdenEliminarRequest param)
+        {
+            var parammapper = _mapper.Map<OrdenEntity>(param);
+            var responsemapper = await _ordenRepository.Eliminar(parammapper);
+            var response = new HttpResponseResult<int>() { Data = responsemapper };
+            return response;
+        }
     }
 }

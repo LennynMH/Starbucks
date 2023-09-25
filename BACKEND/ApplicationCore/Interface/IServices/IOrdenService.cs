@@ -8,7 +8,7 @@ namespace ApplicationCore.Interface.IServices
     {
         Task<HttpResponseResult<int>> Registrar(OrdenRegistrarRequest param);
         Task<HttpResponseResult<int>> Actualizar(OrdenRegistrarRequest param);
-        Task<HttpResponseResult<List<OrdenListarResponse>>> Listar();
+        Task<HttpResponseResult<List<OrdenListarResponse>>> Listar(OrdenListarRequest query);
         Task<HttpResponseResult<OrdenListarByIdResponse>> ListarById(int IdOrden);
         Task<HttpResponseResult<int>> Eliminar(OrdenEliminarRequest param);
     }

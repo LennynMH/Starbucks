@@ -86,9 +86,9 @@ namespace WebApi.Controllers
         [HttpPost("Listar")]
         [ProducesResponseType(typeof(OrdenListarResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Listar()
+        public async Task<IActionResult> Listar([FromBody] OrdenListarRequest query)
         {
-            return Ok(await _ordenService.Listar());
+            return Ok(await _ordenService.Listar(query));
         }
 
 

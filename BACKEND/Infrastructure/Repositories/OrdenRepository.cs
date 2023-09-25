@@ -1,7 +1,6 @@
 ﻿using ApplicationCore.Interface.IRepositories;
 using Dapper;
 using Domain.Constants;
-using Domain.DTO.Request.ItemMateriaPrima;
 using Domain.DTO.Request.OrdenItem;
 using Domain.DTO.Response.Orden;
 using Domain.Entities;
@@ -89,7 +88,7 @@ namespace Infrastructure.Repositories
             }
             return result;
         }
-        public async Task<IEnumerable<OrdenEntity>?> Listar()
+        public async Task<IEnumerable<OrdenEntity>?> Listar(OrdenEntity param)
         {
             using (var dbConnection = ObtenerConexion())
             {
@@ -98,12 +97,15 @@ namespace Infrastructure.Repositories
                 (orden, usuario, empleado, estado) =>
                 {
                     orden.Usuario = usuario;
-                   orden.Empleado = empleado;
+                    orden.Empleado = empleado;
                     orden.Estado = estado;
                     return orden;
                 },
                 new
-                { },
+                {
+                    param.Estado.IdEstado,
+                    IdEmpleado = param.Empleado == null ? 0 : param.Empleado.IdUsuario,
+                },
                 splitOn: "IdUsuario,IdEmpleado,IdEstado",
                 commandType: CommandType.StoredProcedure);
                 return result;

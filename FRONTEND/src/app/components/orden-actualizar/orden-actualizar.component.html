@@ -1,1 +1,32 @@
-<p>orden-actualizar works!</p>
+<div class="jumbotron py-3">
+    <h1 class="display-4 text-center">Actualizar Orden</h1>
+</div>
+<div class="row">
+    <div class="mb-4">
+        <button class="btn btn-primary rounded-pill px-5" type="button" (click)="Listar()">Listar</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Numero</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let entity of list">
+                    <td>{{entity.numeroOrden}}</td>
+                    <td>{{getFormat(entity.fechaCreacion)}}</td>
+                    <td>{{entity.estado.descripcion}}</td>
+                    <td *ngIf="entity.estado.idEstado == 1">
+                        <i class="fa fa-user fa-lg text-danger me-3" (click)="Asignar(entity.idOrden)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -10,6 +10,7 @@ namespace ApplicationCore.Mappings
         public AutoMapperOrden()
         {
             //Orden
+            CreateMap<OrdenEntity, OrdenListarRequest>();
             CreateMap<OrdenEntity, OrdenListarResponse>();
             CreateMap<OrdenRegistrarRequest, OrdenEntity>();
             CreateMap<OrdenEliminarRequest, OrdenEntity>()

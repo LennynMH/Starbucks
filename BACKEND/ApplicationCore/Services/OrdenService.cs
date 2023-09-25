@@ -9,7 +9,7 @@ using Domain.Entities;
 
 namespace ApplicationCore.Services
 {
-    public class OrdenService: IOrdenService
+    public class OrdenService : IOrdenService
     {
         private readonly IOrdenRepository _ordenRepository;
         private readonly IMapper _mapper;
@@ -38,9 +38,10 @@ namespace ApplicationCore.Services
             return response;
         }
 
-        public async Task<HttpResponseResult<List<OrdenListarResponse>>> Listar()
+        public async Task<HttpResponseResult<List<OrdenListarResponse>>> Listar(OrdenListarRequest query)
         {
-            var result = await this._ordenRepository.Listar();
+            var requestmapper = _mapper.Map<OrdenEntity>(query);
+            var result = await this._ordenRepository.Listar(requestmapper);
             var responsemapper = _mapper.Map<IEnumerable<OrdenListarResponse>>(result);
             var response = new HttpResponseResult<List<OrdenListarResponse>>() { Data = responsemapper.ToList<OrdenListarResponse>() };
             return response;

@@ -607,6 +607,8 @@ GO
 DROP PROCEDURE IF EXISTS USP_SELECT_ORDEN;
 GO
 CREATE PROCEDURE USP_SELECT_ORDEN
+@IdEmpleado  INT,
+@IdEstado INT
 AS
 BEGIN
 	SELECT 
@@ -636,6 +638,8 @@ BEGIN
 	inner join Usuario u on u.IdUsuario = i.IdUsuario
 	left join Usuario e on e.IdUsuario = i.IdEmpleado
 	inner join Estado s on s.IdEstado = i.IdEstado
+	WHERE (@IdEmpleado = 0 OR  i.IdEmpleado= @IdEmpleado)
+	AND  (@IdEstado = 0 OR  i.IdEstado= @IdEstado)
 END
 GO
 

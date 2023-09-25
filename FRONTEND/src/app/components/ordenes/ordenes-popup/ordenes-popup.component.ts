@@ -111,6 +111,10 @@ export class OrdenesPopupComponent extends ComponentBase implements OnInit {
       var validaitem = this.listOrdenItem.find(x => x.item.idItem == this.idItem);
       if (validaitem) {
         this.toastr.error("la materia prima ya esta agregada");
+      } else if (this.precioItem == 0){
+        this.toastr.error("ingrese el precio");
+      } else if (this.cantidadItem == 0 ){
+        this.toastr.error("ingrese la cantidad");
       } else {
         ordenItem.item = this.item;
         ordenItem.tiempoItem = 5;

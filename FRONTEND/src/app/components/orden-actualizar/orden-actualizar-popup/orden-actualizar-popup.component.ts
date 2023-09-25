@@ -68,7 +68,7 @@ export class OrdenActualizarPopupComponent extends ComponentBase implements OnIn
       this.InsertModal(form)
     }
     else {
-      this.toastr.error("falta agregar detalles");
+      this.toastr.error("falta seleccionar el empleado");
     }
   }
 

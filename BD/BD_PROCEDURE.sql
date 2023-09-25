@@ -706,4 +706,28 @@ BEGIN
 END
 GO
 
+DROP PROCEDURE IF EXISTS USP_DELETE_ORDEN;
+GO
+CREATE PROCEDURE USP_DELETE_ORDEN
+	@IdOrden				INT		,
+	@IdEstado				INT		
+AS
+BEGIN
+	UPDATE Orden SET IdEstado = @IdEstado WHERE IdOrden =@IdOrden ;
+END
+GO
+
+DROP PROCEDURE IF EXISTS USP_ASIGNAR_ORDEN;
+GO
+CREATE PROCEDURE USP_ASIGNAR_ORDEN
+	@IdOrden				INT		,
+	@IdEmpleado				INT,
+	@IdEstado				INT		
+AS
+BEGIN
+	UPDATE Orden SET IdEmpleado = @IdEmpleado ,  IdEstado = @IdEstado WHERE IdOrden = @IdOrden ;
+	SELECT @IdOrden;
+END
+GO
+
 

@@ -77,4 +77,17 @@ export class OrdenService extends ServiceBase {
       }),
     );
   }
+
+  Asignar(params: any) {
+    let headers = this.GetHeader();
+    const endpointUrl = this.baseURL + IncomeWebApi.OrdenAsignar;
+    return this.http.post(endpointUrl, params, headers).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(err => {
+        throw err;
+      }),
+    );
+  }
 }

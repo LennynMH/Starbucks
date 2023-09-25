@@ -11,5 +11,6 @@ namespace ApplicationCore.Interface.IServices
         Task<HttpResponseResult<List<OrdenListarResponse>>> Listar(OrdenListarRequest query);
         Task<HttpResponseResult<OrdenListarByIdResponse>> ListarById(int IdOrden);
         Task<HttpResponseResult<int>> Eliminar(OrdenEliminarRequest param);
+        Task<HttpResponseResult<int>> Asignar(OrdenRegistrarRequest param);
     }
 }

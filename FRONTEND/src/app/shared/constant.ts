@@ -26,6 +26,7 @@ export const IncomeWebApi = {
     OrdenActualizar: "/api/Orden/Actualizar",
     OrdenRegistrar: "/api/Orden/Registrar",
     OrdenListarById: "/api/Orden/ListarById",
+    OrdenAsignar: "/api/Orden/Asignar",
 }
 
 export const RolesWebApi = {

@@ -140,5 +140,29 @@ namespace WebApi.Controllers
             return Ok(await _ordenService.Eliminar(query));
         }
 
+
+
+        /// <summary>
+        /// Crear Método que asignar orden
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>asignar orden</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Asignar
+        ///     {
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the newly asignar orden</response>
+        /// <response code="400">If the orden is null</response>
+        [HttpPost("Asignar")]
+        [ProducesResponseType(typeof(OrdenRegistrarRequest), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(HttpResponseResult), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Asignar([FromBody] OrdenRegistrarRequest query)
+        {
+            return Ok(await _ordenService.Asignar(query));
+        }
     }
 }

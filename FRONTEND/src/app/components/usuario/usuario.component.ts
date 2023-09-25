@@ -6,6 +6,7 @@ import { UsuarioResponse } from 'src/app/shared/models/usuarioResponse.model';
 import { UsuarioService } from '../../shared/services/usuario.service';
 import { RolResponse } from 'src/app/shared/models/rolResponse.model';
 import { RolService } from '../../shared/services/rol.service';
+import { Rol } from 'src/app/shared/entity/rol.model';
 
 @Component({
   selector: 'app-usuario',
@@ -36,8 +37,9 @@ export class UsuarioComponent extends ComponentBase implements OnInit {
   }
 
   Listar() {
+    let request = { idRol: this.idRol };
     this.list = [];
-    this.service.Listar({ idRol: this.idRol }).subscribe(
+    this.service.Listar(request).subscribe(
       (response) => {
         this.list = response.data;
       },

@@ -46,24 +46,29 @@ export class OrdenActualizarComponent extends ComponentBase implements OnInit {
   }
 
   Asignar(id: number) {
+    //debugger;
+    localStorage.setItem("id", id.toString());
+    this.isOpenModal = true;
+  }
+
+  Insert(params: any) {
     debugger;
-    // if (confirm('¿Desea deshabilitar el registro?')) {
-    //   this.service.Delete(id, parseInt(EstadosWebApi.Eiminado)).subscribe(
-    //     (response) => {
-    //       try {
-    //         if (response.success) {
-    //           this.Listar();
-    //           this.toastr.success("Deshabilitación exitosa");
-    //         }
-    //       }
-    //       catch (error) {
-    //         this.toastr.error("Error en la deshabilitación");
-    //       }
-    //     },
-    //     (error) => {
-    //       this.ManageErrors(error);
-    //     });
-    // }
+    this.service.Asignar(params).subscribe(
+      (response) => {
+        try {
+          if (response.success) {
+            this.Listar();
+            this.toastr.success("Creación exitosa");
+          }
+        }
+        catch (error) {
+          this.toastr.error("Error en la inserción");
+        }
+      },
+      (error) => {
+        this.ManageErrors(error);
+      });
+    this.isOpenModal = false;
   }
 
   getFormat(date) {

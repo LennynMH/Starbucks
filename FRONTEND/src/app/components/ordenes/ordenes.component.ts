@@ -6,6 +6,8 @@ import { OrdenResponse } from 'src/app/shared/models/ordenResponse.model';
 import { OrdenService } from 'src/app/shared/services/orden.service';
 import { EstadosWebApi } from 'src/app/shared/constant';
 import * as moment from "moment";
+import { Estado } from 'src/app/shared/entity/estado.model';
+import { Usuario } from 'src/app/shared/entity/usuario.model';
 
 @Component({
   selector: 'app-ordenes',
@@ -28,8 +30,13 @@ export class OrdenesComponent extends ComponentBase implements OnInit {
   }
 
   Listar() {
+    let request: OrdenResponse = new OrdenResponse();
+    request.estado = new Estado();
+    request.estado.idEstado = 0;
+    request.empleado = new Usuario();
+    request.empleado.idUsuario = 0;
     this.list = [];
-    this.service.Listar({}).subscribe(
+    this.service.Listar(request).subscribe(
       (response) => {
         this.list = response.data;
       },
@@ -108,6 +115,7 @@ export class OrdenesComponent extends ComponentBase implements OnInit {
   OpenCreate() {
     this.isOpenModal = true;
   }
+  
   getFormat(date) {
     return moment(date).format("DD/MM/YYYY");
   }

@@ -177,5 +177,37 @@ namespace Infrastructure.Repositories
             }
             return result;
         }
+        public async Task<int> Asignar(OrdenEntity param)
+        {
+            int result;
+
+            using (var dbConnection = ObtenerConexion())
+            {
+                dbConnection.Open();
+                using (var dbtransaction = dbConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        result = await dbConnection.QuerySingleAsync<int>(ConstStoreProcedure.Orden.USP_ASIGNAR_ORDEN,
+                            new
+                            {
+                                param.IdOrden,
+                                IdEmpleado = param.Empleado.IdUsuario,
+                                param.Estado.IdEstado,
+                            },
+                            transaction: dbtransaction,
+                            commandType: CommandType.StoredProcedure);
+
+                        dbtransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbtransaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

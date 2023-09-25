@@ -62,5 +62,13 @@ namespace ApplicationCore.Services
             var response = new HttpResponseResult<int>() { Data = responsemapper };
             return response;
         }
+
+        public async Task<HttpResponseResult<int>> Asignar(OrdenRegistrarRequest param)
+        {
+            var parammapper = _mapper.Map<OrdenEntity>(param);
+            var responsemapper = await _ordenRepository.Asignar(parammapper);
+            var response = new HttpResponseResult<int>() { Data = responsemapper };
+            return response;
+        }
     }
 }

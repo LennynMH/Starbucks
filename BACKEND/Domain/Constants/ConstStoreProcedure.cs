@@ -51,6 +51,7 @@
             public const string USP_DELETE_ORDEN = "USP_DELETE_ORDEN";
             public const string USP_SELECT_ORDEN = "USP_SELECT_ORDEN";
             public const string USP_SELECT_ORDEN_BY_ID = "USP_SELECT_ORDEN_BY_ID";
+            public const string USP_ASIGNAR_ORDEN = "USP_ASIGNAR_ORDEN";
         }
 
         public static class Acceso

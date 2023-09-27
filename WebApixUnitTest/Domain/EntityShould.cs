@@ -4,7 +4,6 @@ namespace WebApixUnitTest.Domain
 {
     public class EntityShould
     {
-
         [Fact]
         public void ValidateOrdenError()
         {

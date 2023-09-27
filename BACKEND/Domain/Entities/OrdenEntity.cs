@@ -15,5 +15,10 @@
         public int TiempoOrden { get; set; }
 
         public List<OrdenItemEntity>? OrdenItem { get; }
+
+        //public OrdenEntity()
+        //{
+        //    this.OrdenItem = new List<OrdenItemEntity>();
+        //}
     }
 }
